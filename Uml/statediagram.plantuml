@@ -1,0 +1,10 @@
+@startuml
+    [*] --> Idle
+    Idle --> Idle : Check for app requests
+    Idle --> WindowToggle : Open/Close\nwindow
+    WindowToggle --> Idle 
+    Idle --> WaterPlant : Plant needs water
+    WaterPlant -left-> WaterPlant : Water plant
+    WaterPlant --> Idle
+    Idle --> [*] : Shutdown
+@enduml

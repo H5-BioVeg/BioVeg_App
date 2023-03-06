@@ -1,0 +1,20 @@
+@startuml
+title SD Scan for greenhouse title
+    skinparam responseMessageBelowArrow true
+    actor User
+    boundary app
+    participant greenHouseManager
+    participant arduinoManager
+    entity arduino
+
+    User -> app ++: *Click* search \nfor greenhouses
+    app -> greenHouseManager ++: Search for\ngreenhouses
+    greenHouseManager -> arduinoManager ++: Search for\n arduinos
+    arduinoManager -> arduino ++: Scan for arduinos\non network
+    arduino --> arduinoManager --: Send ID
+    arduinoManager --> greenHouseManager --: Return list of \navailable arduinos
+    alt no new \ngreenhouses
+        greenHouseManager --> app : Show no new \ngreenhouses avilable
+    end
+    greenHouseManager --> app --: Show list of \navailable greenhouses
+@enduml
