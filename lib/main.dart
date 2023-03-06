@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'sensor.dart';
 import 'package:bio_veg/screens/HomeScreen.dart';
 
 void main() {

@@ -1,10 +1,8 @@
-import 'package:flutter/cupertino.dart';
+import 'package:bio_veg/widgets/GhPlant.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
-class Greenhousescreen extends StatelessWidget {
-  const Greenhousescreen({super.key, this.houseName = "test"});
+class GreenHouseScreen extends StatelessWidget {
+  const GreenHouseScreen({super.key, this.houseName = "test"});
 
   final String houseName;
 
@@ -17,22 +15,25 @@ class Greenhousescreen extends StatelessWidget {
       ),
       body: Container(
         child: Center(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Column(
-                children: [
-                  Text("column 1 data"),
-                  Text("column 1 data"),
-                ],
-              ),
-              Column(
-                children: [
-                  Text("column 2 data"),
-                  Text("column 2 data"),
-                ],
-              ),
-            ],
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 15),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Column(children: const [
+                  GhPlant(plantName: "Chili"),
+                  SizedBox(height: 10),
+                  GhPlant(plantName: "Tomat"),
+                ]),
+                Column(
+                  children: const [
+                    GhPlant(plantName: "Agurk"),
+                    SizedBox(height: 10),
+                    GhPlant(plantName: "Hvidløb"),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),

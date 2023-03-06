@@ -1,7 +1,5 @@
-import 'package:bio_veg/screens/Greenhousescreen.dart';
+import 'package:bio_veg/screens/GreenHouseScreen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key, this.title = "Bioveg"});
@@ -38,7 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const Greenhousescreen(
+                        builder: (context) => const GreenHouseScreen(
                               houseName: "Temp Name",
                             )),
                   );
