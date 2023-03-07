@@ -15,17 +15,40 @@ class GhPlant extends StatefulWidget {
 class _GhPlantState extends State<GhPlant> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: [
-          Text(widget.plantName),
-          Row(
+    //Ripple effect on click
+    return InkWell(
+      splashColor: Colors.white,
+      onTap: (() {
+        //Go to plant detailsx
+      }),
+      child: Ink(
+        color: Colors.greenAccent,
+        child: Container(
+          constraints: BoxConstraints(maxWidth: 175, minWidth: 140),
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+          decoration: BoxDecoration(
+              //Color needs to change depending on restrictions in the plant
+              border: Border.all(color: Colors.black38, width: 1.5),
+              borderRadius: BorderRadius.circular(8)),
+          //Set min width of columns
+          child: Column(
             children: [
-              Icon(Icons.water_drop_outlined),
-              Text("Fugt mål"),
+              FittedBox(
+                fit: BoxFit.fitWidth,
+                child: Text(
+                    style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+                    widget.plantName),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Icon(Icons.water_drop_outlined),
+                  Text(style: TextStyle(fontSize: 20), "Fugt mål"),
+                ],
+              ),
             ],
           ),
-        ],
+        ),
       ),
     );
   }
