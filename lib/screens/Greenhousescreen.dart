@@ -1,3 +1,4 @@
+import 'package:bio_veg/screens/GreenHouseSettingsScreen.dart';
 import 'package:bio_veg/widgets/GhPlant.dart';
 import 'package:flutter/material.dart';
 
@@ -14,10 +15,15 @@ class GreenHouseScreen extends StatelessWidget {
         title: Text(style: TextStyle(fontSize: 30), houseName),
         actions: [
           IconButton(
-              icon: const Icon(Icons.settings_rounded),
-              onPressed: (() {
-                //Go to settings
-              })),
+            icon: const Icon(Icons.settings_rounded),
+            //Go to settings
+            onPressed: (() {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => GreenHouseSettingsScreen()));
+            }),
+          ),
         ],
       ),
       body: Container(
