@@ -12,7 +12,6 @@ class GreenHouseSettingsScreen extends StatefulWidget {
 //Change this when View models have been sat up
 TextEditingController _settingsController =
     TextEditingController.fromValue(const TextEditingValue(text: 'Flim'));
-FocusNode _nameFocusNode = FocusNode();
 RangeValues _currentTempRange = const RangeValues(0, 40);
 RangeValues _currenthumidityRange = const RangeValues(0, 100);
 
@@ -21,23 +20,16 @@ class _GreenHouseSettingsScreenState extends State<GreenHouseSettingsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
-        title: TextField(
-            style: const TextStyle(fontSize: 30),
+          backgroundColor: Colors.greenAccent,
+          //We can make this into a widget or something, since it will be used multiple places
+          title: TextField(
+            textAlign: TextAlign.center,
+            decoration: const InputDecoration(
+              suffixIcon: Icon(Icons.mode_edit_outline_outlined),
+            ),
             controller: _settingsController,
-            focusNode: _nameFocusNode),
-        actions: [
-          IconButton(
-            onPressed: (() {
-              //Open edit name modal
-              setState(() {
-                _nameFocusNode.requestFocus();
-              });
-            }),
-            icon: const Icon(Icons.mode_edit_outline_outlined),
-          )
-        ],
-      ),
+            style: const TextStyle(fontSize: 30),
+          )),
       body: Padding(
         padding: const EdgeInsets.all(10),
         child: Container(
@@ -97,11 +89,10 @@ class _GreenHouseSettingsScreenState extends State<GreenHouseSettingsScreen> {
                   ),
                   Expanded(
                       child: Align(
-                    alignment: FractionalOffset.bottomCenter,
+                    alignment: Alignment.bottomCenter,
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(0, 0, 0, 30),
                       child: MaterialButton(
-                        color: const Color.fromARGB(255, 231, 231, 231),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                           side: const BorderSide(color: Colors.grey),

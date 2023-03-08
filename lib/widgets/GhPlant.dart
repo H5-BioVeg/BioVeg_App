@@ -1,3 +1,4 @@
+import 'package:bio_veg/screens/PlantDetailsScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
@@ -20,6 +21,15 @@ class _GhPlantState extends State<GhPlant> {
       splashColor: Colors.white,
       onTap: (() {
         //Go to plant details
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => PlantDetailsScreen(
+                plantName: "plantName",
+                earthHumidity: 80,
+                type: PlantTypes.agurk,
+              ),
+            ));
       }),
       child: Ink(
         color: Colors.greenAccent,

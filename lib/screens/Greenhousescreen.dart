@@ -3,9 +3,9 @@ import 'package:bio_veg/widgets/GhPlant.dart';
 import 'package:flutter/material.dart';
 
 class GreenHouseScreen extends StatelessWidget {
-  const GreenHouseScreen({super.key, this.houseName = "test"});
-
   final String houseName;
+
+  const GreenHouseScreen({super.key, this.houseName = "test"});
 
   @override
   Widget build(BuildContext context) {
