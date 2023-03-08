@@ -1,4 +1,6 @@
 import 'package:bio_veg/screens/Greenhousescreen.dart';
+import 'package:bio_veg/screens/TestScreen.dart';
+import 'package:bio_veg/screens/Wifi.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -107,7 +109,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   child: const Text("Scan for drivhuse"),
                   onPressed: () {
-                    //SCAN NETWORK METHOD
+                    Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const WifiTest(
+                             
+                            )),
+                  );
                   },
                 ),
               ),
