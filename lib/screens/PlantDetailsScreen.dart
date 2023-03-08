@@ -130,8 +130,10 @@ class _PlantDetailsScreenState extends State<PlantDetailsScreen> {
                   splashRadius: 20,
                   onPressed: () => showDialog(
                       context: context,
-                      builder: (context) => ShowInfoPopUpDialog(
-                          title: "title", content: "content")),
+                      builder: (context) => const ShowInfoPopUpDialog(
+                          title: "Fugt I jorden & Slider",
+                          content:
+                              "En indikator for hvor fugtig jorden er. (opdaterer hvert kvarter)\n\nEn minimum og maximum værdi for hvor tør og vådjorden må være. Du vil blive alarmeret hvis de bliver overskredet.")),
                   icon: const Icon(Icons.info,
                       color: Color.fromARGB(255, 16, 66, 153))),
             ],
