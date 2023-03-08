@@ -19,7 +19,7 @@ class _GhPlantState extends State<GhPlant> {
     return InkWell(
       splashColor: Colors.white,
       onTap: (() {
-        //Go to plant detailsx
+        //Go to plant details
       }),
       child: Ink(
         color: Colors.greenAccent,

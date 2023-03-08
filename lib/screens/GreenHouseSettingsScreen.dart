@@ -1,8 +1,5 @@
-import 'dart:math';
-
+import 'package:bio_veg/dialogs/DeletePopUpDialog.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 class GreenHouseSettingsScreen extends StatefulWidget {
   const GreenHouseSettingsScreen({super.key});
@@ -12,11 +9,12 @@ class GreenHouseSettingsScreen extends StatefulWidget {
       _GreenHouseSettingsScreenState();
 }
 
-late TextEditingController _settingsController =
-    TextEditingController.fromValue(TextEditingValue(text: 'Flim'));
-FocusNode nameFocusNode = FocusNode();
+//Change this when View models have been sat up
+TextEditingController _settingsController =
+    TextEditingController.fromValue(const TextEditingValue(text: 'Flim'));
+FocusNode _nameFocusNode = FocusNode();
 RangeValues _currentTempRange = const RangeValues(0, 40);
-RangeValues _CurrenthumidityRange = const RangeValues(0, 100);
+RangeValues _currenthumidityRange = const RangeValues(0, 100);
 
 class _GreenHouseSettingsScreenState extends State<GreenHouseSettingsScreen> {
   @override
@@ -25,19 +23,18 @@ class _GreenHouseSettingsScreenState extends State<GreenHouseSettingsScreen> {
       appBar: AppBar(
         centerTitle: true,
         title: TextField(
-            style: TextStyle(fontSize: 30),
+            style: const TextStyle(fontSize: 30),
             controller: _settingsController,
-            focusNode: nameFocusNode),
+            focusNode: _nameFocusNode),
         actions: [
           IconButton(
             onPressed: (() {
               //Open edit name modal
               setState(() {
-                nameFocusNode.requestFocus();
-                print(_settingsController.text);
+                _nameFocusNode.requestFocus();
               });
             }),
-            icon: Icon(Icons.mode_edit_outline_outlined),
+            icon: const Icon(Icons.mode_edit_outline_outlined),
           )
         ],
       ),
@@ -55,8 +52,8 @@ class _GreenHouseSettingsScreenState extends State<GreenHouseSettingsScreen> {
                         decoration: TextDecoration.underline,
                       ),
                       'Temperature'),
-                  SizedBox(height: 5),
-                  Container(
+                  const SizedBox(height: 5),
+                  SizedBox(
                     width: 250,
                     child: RangeSlider(
                       values: _currentTempRange,
@@ -73,27 +70,27 @@ class _GreenHouseSettingsScreenState extends State<GreenHouseSettingsScreen> {
                       }),
                     ),
                   ),
-                  SizedBox(height: 5),
+                  const SizedBox(height: 5),
                   const Text(
                       style: TextStyle(
                         fontSize: 30,
                         decoration: TextDecoration.underline,
                       ),
                       'Humidity'),
-                  SizedBox(height: 5),
-                  Container(
+                  const SizedBox(height: 5),
+                  SizedBox(
                     width: 250,
                     child: RangeSlider(
-                      values: _CurrenthumidityRange,
+                      values: _currenthumidityRange,
                       max: 100,
                       divisions: 50,
                       labels: RangeLabels(
-                        '${_CurrenthumidityRange.start.round()}%',
-                        '${_CurrenthumidityRange.end.round()}%',
+                        '${_currenthumidityRange.start.round()}%',
+                        '${_currenthumidityRange.end.round()}%',
                       ),
                       onChanged: ((RangeValues values) {
                         setState(() {
-                          _CurrenthumidityRange = values;
+                          _currenthumidityRange = values;
                         });
                       }),
                     ),
@@ -104,14 +101,22 @@ class _GreenHouseSettingsScreenState extends State<GreenHouseSettingsScreen> {
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(0, 0, 0, 30),
                       child: MaterialButton(
-                        color: Color.fromARGB(255, 231, 231, 231),
+                        color: const Color.fromARGB(255, 231, 231, 231),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
-                          side: BorderSide(color: Colors.grey),
+                          side: const BorderSide(color: Colors.grey),
                         ),
                         child: const Text("Slet Drivhus"),
                         onPressed: () {
-                          //SCAN NETWORK METHOD
+                          //Show delete pop up modal
+                          showDialog(
+                              context: context,
+                              builder: (context) =>
+                                  const DeletePopUpDialog()).then((value) {
+                            if (value) {
+                              //If value = true, delete the greenhouse
+                            }
+                          });
                         },
                       ),
                     ),
