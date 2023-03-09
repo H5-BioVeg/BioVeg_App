@@ -123,6 +123,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.8.2"
+  ping_discover_network:
+    dependency: "direct main"
+    description:
+      name: ping_discover_network
+      sha256: f0b2a14cfecdf214e4e6587c362656dd56eaede0e4e26ae0439ad11990d61d7a
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.0+1"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -184,14 +192,5 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.4"
-  wifi_scan:
-    dependency: "direct main"
-    description:
-      name: wifi_scan
-      sha256: aba3aa28f45b817356048022d0dde0c8b2e4054ed0151489bfc3103f7197d19d
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.4.0+1"
 sdks:
   dart: ">=2.18.4 <3.0.0"
-  flutter: ">=3.0.0"
