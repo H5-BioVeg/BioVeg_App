@@ -27,12 +27,12 @@ class _GhPlantState extends State<GhPlant> {
               builder: (context) => PlantDetailsScreen(
                 plantName: "plantName",
                 earthHumidity: 80,
-                type: PlantTypes.agurk,
+                type: PlantTypes.Agurk,
               ),
             ));
       }),
       child: Ink(
-        color: Colors.greenAccent,
+        color: Color.fromARGB(255, 42, 205, 127),
         child: Container(
           constraints: BoxConstraints(maxWidth: 175, minWidth: 140),
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
@@ -46,7 +46,8 @@ class _GhPlantState extends State<GhPlant> {
               FittedBox(
                 fit: BoxFit.fitWidth,
                 child: Text(
-                    style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+                    style: const TextStyle(
+                        fontSize: 28, fontWeight: FontWeight.bold),
                     widget.plantName),
               ),
               Row(

@@ -1,14 +1,9 @@
 import 'package:bio_veg/dialogs/ShowInfoPopUpDialog.dart';
 import 'package:flutter/material.dart';
 
-enum PlantTypes {
-  custom,
-  tomat,
-  agurk,
-  chili,
-  loeg,
-  hvidloeg,
-}
+enum PlantTypes { Custom, Tomat, Agurk, Chili, Loeg, Hvidloeg }
+
+enum EarthHumidityLevels { Meget_toer, Toer, Fugtig, Vaad, Meget_vaad }
 
 class PlantDetailsScreen extends StatefulWidget {
   late String plantName;
@@ -20,14 +15,14 @@ class PlantDetailsScreen extends StatefulWidget {
   PlantDetailsScreen(
       {super.key,
       this.plantName = "Dev",
-      this.type = PlantTypes.custom,
+      this.type = PlantTypes.Custom,
       this.earthHumidity = 0});
 
   @override
   State<PlantDetailsScreen> createState() => _PlantDetailsScreenState();
 }
 
-RangeValues _currenthumidityRange = const RangeValues(0, 100);
+RangeValues _currenthumidityRange = const RangeValues(0, 4);
 late TextEditingController _titleEditingController;
 
 class _PlantDetailsScreenState extends State<PlantDetailsScreen> {
@@ -94,7 +89,7 @@ class _PlantDetailsScreenState extends State<PlantDetailsScreen> {
                 ),
                 //Info button for dropdown templates
                 IconButton(
-                  icon: Icon(Icons.info),
+                  icon: const Icon(Icons.info),
                   splashRadius: 20,
                   color: const Color.fromARGB(255, 16, 66, 153),
                   onPressed: () {
@@ -111,17 +106,21 @@ class _PlantDetailsScreenState extends State<PlantDetailsScreen> {
             ),
           ),
           //Humidity right now
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Icon(Icons.water_drop, color: Colors.blueAccent, size: 36),
-              Text(
-                '${widget.earthHumidity}%',
-                style: TextStyle(fontSize: 23),
-              )
-            ],
+          Padding(
+            padding: const EdgeInsets.fromLTRB(0, 10, 0, 40),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(Icons.water_drop,
+                    color: Colors.blueAccent, size: 36),
+                Text(
+                  '${widget.earthHumidity}%',
+                  style: const TextStyle(fontSize: 23),
+                )
+              ],
+            ),
           ),
-          //Humidity indicator
+          //Humidity Title and info
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -138,22 +137,40 @@ class _PlantDetailsScreenState extends State<PlantDetailsScreen> {
                       color: Color.fromARGB(255, 16, 66, 153))),
             ],
           ),
-          //Humidity title and info button
-          Column(),
           //Rangeslider for humidity
-          RangeSlider(
-            values: _currenthumidityRange,
-            max: 100,
-            divisions: 50,
-            labels: RangeLabels(
-              '${_currenthumidityRange.start.round()}%',
-              '${_currenthumidityRange.end.round()}%',
-            ),
-            onChanged: ((values) {
-              setState(() {
-                _currenthumidityRange = values;
-              });
-            }),
+          Column(
+            children: [
+              Container(
+                width: 400,
+                child: RangeSlider(
+                  values: _currenthumidityRange,
+                  activeColor: const Color.fromARGB(255, 62, 207, 67),
+                  inactiveColor: const Color.fromARGB(255, 220, 220, 220),
+                  min: 0,
+                  max: 4,
+                  divisions: 4,
+                  //This needs a hefty dose of god
+                  labels: RangeLabels(
+                      EarthHumidityLevels
+                          .values[_currenthumidityRange.start.round()].name
+                          .toString()
+                          .replaceAll('aa', 'å')
+                          .replaceAll('oe', 'ø')
+                          .replaceAll('_', ' '),
+                      EarthHumidityLevels
+                          .values[_currenthumidityRange.end.round()].name
+                          .toString()
+                          .replaceAll('aa', 'å')
+                          .replaceAll('oe', 'ø')
+                          .replaceAll('_', ' ')),
+                  onChanged: ((values) {
+                    setState(() {
+                      _currenthumidityRange = values;
+                    });
+                  }),
+                ),
+              ),
+            ],
           ),
         ],
       )),

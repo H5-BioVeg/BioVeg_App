@@ -41,7 +41,7 @@ class GreenHouseScreen extends StatelessWidget {
                       Icon(Icons.wb_sunny, color: Colors.amberAccent),
                       Text(style: TextStyle(fontSize: 20), "26*C"),
                       SizedBox(width: 60),
-                      Icon(Icons.water_drop_outlined, color: Colors.blueAccent),
+                      Icon(Icons.water_drop, color: Colors.blueAccent),
                       Text(style: TextStyle(fontSize: 20), "80%"),
                     ],
                   ),
