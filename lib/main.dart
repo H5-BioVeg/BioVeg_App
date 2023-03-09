@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'sensor.dart';
 import 'package:bio_veg/screens/HomeScreen.dart';
 
 void main() {
@@ -12,6 +11,7 @@ class FrontPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: "Bioveg",
       theme: ThemeData(
         primarySwatch: Colors.green,
