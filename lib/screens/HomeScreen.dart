@@ -1,11 +1,13 @@
+import 'package:bio_veg/classes/GreenhouseManager.dart';
 import 'package:bio_veg/screens/GreenHouseScreen.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key, this.title = "Bioveg"});
+  HomeScreen({super.key, this.title = "Bioveg"});
 
   final String drivhusName = "data2";
   final String title;
+  final GreenhouseManager manager = GreenhouseManager();
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -41,29 +43,33 @@ class _HomeScreenState extends State<HomeScreen> {
                             )),
                   );
                 },
-                child: Container(
-                  decoration: BoxDecoration(
-                      color: Colors.blue,
-                      border: Border.all(width: 1.5),
-                      borderRadius: BorderRadius.circular(12)),
-                  height: MediaQuery.of(context).size.height * 0.05,
-                  width: MediaQuery.of(context).size.width * 0.65,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Row(
-                      children: const [
-                        Text(
-                          style: TextStyle(fontSize: 20),
-                          "data",
-                        ),
-                        Spacer(),
-                        Text(
-                          style: TextStyle(fontSize: 20),
-                          "25°C",
-                        ),
-                      ],
+                child: FutureBuilder(
+                  builder: (context, snapshot) {                    
+                  return Container(
+                    decoration: BoxDecoration(
+                        color: Colors.blue,
+                        border: Border.all(width: 1.5),
+                        borderRadius: BorderRadius.circular(12)),
+                    height: MediaQuery.of(context).size.height * 0.05,
+                    width: MediaQuery.of(context).size.width * 0.65,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: Row(
+                        children: const [
+                          Text(
+                            style: TextStyle(fontSize: 20),
+                            "data",
+                          ),
+                          Spacer(),
+                          Text(
+                            style: TextStyle(fontSize: 20),
+                            "25°C",
+                          ),
+                        ],
+                      ),
                     ),
                   ),
+                  },
                 ),
               ),
             ),
