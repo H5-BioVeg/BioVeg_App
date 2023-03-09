@@ -1,4 +1,5 @@
 import 'package:bio_veg/dialogs/ShowInfoPopUpDialog.dart';
+import 'package:syncfusion_flutter_sliders/sliders.dart';
 import 'package:flutter/material.dart';
 
 enum PlantTypes { Custom, Tomat, Agurk, Chili, Loeg, Hvidloeg }
@@ -22,7 +23,7 @@ class PlantDetailsScreen extends StatefulWidget {
   State<PlantDetailsScreen> createState() => _PlantDetailsScreenState();
 }
 
-RangeValues _currenthumidityRange = const RangeValues(0, 4);
+SfRangeValues _currenthumidityRange = SfRangeValues(0, 4);
 late TextEditingController _titleEditingController;
 
 class _PlantDetailsScreenState extends State<PlantDetailsScreen> {
@@ -114,7 +115,7 @@ class _PlantDetailsScreenState extends State<PlantDetailsScreen> {
                 const Icon(Icons.water_drop,
                     color: Colors.blueAccent, size: 36),
                 Text(
-                  '${widget.earthHumidity}%',
+                  '${EarthHumidityLevels.Fugtig.name}',
                   style: const TextStyle(fontSize: 23),
                 )
               ],
@@ -140,34 +141,29 @@ class _PlantDetailsScreenState extends State<PlantDetailsScreen> {
           //Rangeslider for humidity
           Column(
             children: [
-              Container(
-                width: 400,
-                child: RangeSlider(
+              Padding(
+                padding: const EdgeInsets.fromLTRB(18, 5, 18, 0),
+                child: SfRangeSlider(
                   values: _currenthumidityRange,
-                  activeColor: const Color.fromARGB(255, 62, 207, 67),
-                  inactiveColor: const Color.fromARGB(255, 220, 220, 220),
                   min: 0,
                   max: 4,
-                  divisions: 4,
-                  //This needs a hefty dose of god
-                  labels: RangeLabels(
-                      EarthHumidityLevels
-                          .values[_currenthumidityRange.start.round()].name
-                          .toString()
-                          .replaceAll('aa', 'å')
-                          .replaceAll('oe', 'ø')
-                          .replaceAll('_', ' '),
-                      EarthHumidityLevels
-                          .values[_currenthumidityRange.end.round()].name
-                          .toString()
-                          .replaceAll('aa', 'å')
-                          .replaceAll('oe', 'ø')
-                          .replaceAll('_', ' ')),
-                  onChanged: ((values) {
+                  interval: 1,
+                  stepSize: 1,
+                  showTicks: true,
+                  showLabels: true,
+                  labelFormatterCallback: (actualValue, formattedText) {
+                    return actualValue % 1 == 0
+                        ? '${EarthHumidityLevels.values[int.parse(actualValue.toString().substring(0, 1))].name}'
+                            .replaceAll('aa', 'å')
+                            .replaceAll('_', ' ')
+                            .replaceAll('oe', 'ø')
+                        : "";
+                  },
+                  onChanged: (values) {
                     setState(() {
                       _currenthumidityRange = values;
                     });
-                  }),
+                  },
                 ),
               ),
             ],

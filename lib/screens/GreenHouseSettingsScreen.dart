@@ -1,5 +1,6 @@
 import 'package:bio_veg/dialogs/DeletePopUpDialog.dart';
 import 'package:flutter/material.dart';
+import 'package:syncfusion_flutter_sliders/sliders.dart';
 
 class GreenHouseSettingsScreen extends StatefulWidget {
   const GreenHouseSettingsScreen({super.key});
@@ -12,8 +13,8 @@ class GreenHouseSettingsScreen extends StatefulWidget {
 //Change this when View models have been sat up
 TextEditingController _settingsController =
     TextEditingController.fromValue(const TextEditingValue(text: 'Flim'));
-RangeValues _currentTempRange = const RangeValues(0, 40);
-RangeValues _currenthumidityRange = const RangeValues(0, 100);
+SfRangeValues _currentTempRange = const SfRangeValues(0, 40);
+SfRangeValues _currenthumidityRange = const SfRangeValues(0, 100);
 
 class _GreenHouseSettingsScreenState extends State<GreenHouseSettingsScreen> {
   @override
@@ -43,23 +44,35 @@ class _GreenHouseSettingsScreenState extends State<GreenHouseSettingsScreen> {
                         fontSize: 30,
                         decoration: TextDecoration.underline,
                       ),
-                      'Temperature'),
+                      'Temperatur'),
                   const SizedBox(height: 5),
                   SizedBox(
                     width: 250,
-                    child: RangeSlider(
+                    child: SfRangeSlider(
                       values: _currentTempRange,
+                      min: 0,
                       max: 40,
-                      divisions: 32,
-                      labels: RangeLabels(
-                        '${_currentTempRange.start.round()}C',
-                        '${_currentTempRange.end.round()}C',
-                      ),
-                      onChanged: ((RangeValues values) {
+                      interval: 1,
+                      stepSize: 1,
+                      showLabels: true,
+                      enableTooltip: true,
+                      labelFormatterCallback: (actualValue, formattedText) {
+                        if (actualValue == 0) {
+                          return '0°C';
+                        } else if (actualValue == 40) {
+                          return '40°C';
+                        }
+                        return '';
+                      },
+                      tooltipTextFormatterCallback:
+                          (actualValue, formattedText) {
+                        return '$formattedText°C';
+                      },
+                      onChanged: (values) {
                         setState(() {
                           _currentTempRange = values;
                         });
-                      }),
+                      },
                     ),
                   ),
                   const SizedBox(height: 5),
@@ -68,23 +81,35 @@ class _GreenHouseSettingsScreenState extends State<GreenHouseSettingsScreen> {
                         fontSize: 30,
                         decoration: TextDecoration.underline,
                       ),
-                      'Humidity'),
+                      'Luftfugtighed'),
                   const SizedBox(height: 5),
                   SizedBox(
                     width: 250,
-                    child: RangeSlider(
+                    child: SfRangeSlider(
                       values: _currenthumidityRange,
+                      min: 0,
                       max: 100,
-                      divisions: 50,
-                      labels: RangeLabels(
-                        '${_currenthumidityRange.start.round()}%',
-                        '${_currenthumidityRange.end.round()}%',
-                      ),
-                      onChanged: ((RangeValues values) {
+                      interval: 2,
+                      stepSize: 1,
+                      showLabels: true,
+                      enableTooltip: true,
+                      labelFormatterCallback: (actualValue, formattedText) {
+                        if (actualValue == 0) {
+                          return '0%';
+                        } else if (actualValue == 100) {
+                          return '100%';
+                        }
+                        return '';
+                      },
+                      tooltipTextFormatterCallback:
+                          (actualValue, formattedText) {
+                        return '$formattedText%';
+                      },
+                      onChanged: (values) {
                         setState(() {
                           _currenthumidityRange = values;
                         });
-                      }),
+                      },
                     ),
                   ),
                   Expanded(
