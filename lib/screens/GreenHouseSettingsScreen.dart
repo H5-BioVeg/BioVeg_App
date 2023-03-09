@@ -33,114 +33,110 @@ class _GreenHouseSettingsScreenState extends State<GreenHouseSettingsScreen> {
           )),
       body: Padding(
         padding: const EdgeInsets.all(10),
-        child: Container(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Column(
-                children: [
-                  const Text(
-                      style: TextStyle(
-                        fontSize: 30,
-                        decoration: TextDecoration.underline,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Column(
+              children: [
+                const Text(
+                    style: TextStyle(
+                      fontSize: 30,
+                      decoration: TextDecoration.underline,
+                    ),
+                    'Temperatur'),
+                const SizedBox(height: 5),
+                SizedBox(
+                  width: 250,
+                  child: SfRangeSlider(
+                    values: _currentTempRange,
+                    min: 0,
+                    max: 40,
+                    interval: 1,
+                    stepSize: 1,
+                    showLabels: true,
+                    enableTooltip: true,
+                    labelFormatterCallback: (actualValue, formattedText) {
+                      if (actualValue == 0) {
+                        return '0°C';
+                      } else if (actualValue == 40) {
+                        return '40°C';
+                      }
+                      return '';
+                    },
+                    tooltipTextFormatterCallback: (actualValue, formattedText) {
+                      return '$formattedText°C';
+                    },
+                    onChanged: (values) {
+                      setState(() {
+                        _currentTempRange = values;
+                      });
+                    },
+                  ),
+                ),
+                const SizedBox(height: 5),
+                const Text(
+                    style: TextStyle(
+                      fontSize: 30,
+                      decoration: TextDecoration.underline,
+                    ),
+                    'Luftfugtighed'),
+                const SizedBox(height: 5),
+                SizedBox(
+                  width: 250,
+                  child: SfRangeSlider(
+                    values: _currenthumidityRange,
+                    min: 0,
+                    max: 100,
+                    interval: 2,
+                    stepSize: 1,
+                    showLabels: true,
+                    enableTooltip: true,
+                    labelFormatterCallback: (actualValue, formattedText) {
+                      if (actualValue == 0) {
+                        return '0%';
+                      } else if (actualValue == 100) {
+                        return '100%';
+                      }
+                      return '';
+                    },
+                    tooltipTextFormatterCallback: (actualValue, formattedText) {
+                      return '$formattedText%';
+                    },
+                    onChanged: (values) {
+                      setState(() {
+                        _currenthumidityRange = values;
+                      });
+                    },
+                  ),
+                ),
+                Expanded(
+                    child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 30),
+                    child: MaterialButton(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        side: const BorderSide(color: Colors.grey),
                       ),
-                      'Temperatur'),
-                  const SizedBox(height: 5),
-                  SizedBox(
-                    width: 250,
-                    child: SfRangeSlider(
-                      values: _currentTempRange,
-                      min: 0,
-                      max: 40,
-                      interval: 1,
-                      stepSize: 1,
-                      showLabels: true,
-                      enableTooltip: true,
-                      labelFormatterCallback: (actualValue, formattedText) {
-                        if (actualValue == 0) {
-                          return '0°C';
-                        } else if (actualValue == 40) {
-                          return '40°C';
-                        }
-                        return '';
-                      },
-                      tooltipTextFormatterCallback:
-                          (actualValue, formattedText) {
-                        return '$formattedText°C';
-                      },
-                      onChanged: (values) {
-                        setState(() {
-                          _currentTempRange = values;
+                      child: const Text("Slet Drivhus"),
+                      onPressed: () {
+                        //Show delete pop up modal
+                        showDialog(
+                                context: context,
+                                builder: (context) => const DeletePopUpDialog())
+                            .then((value) {
+                          if (value) {
+                            //If value = true, delete the greenhouse
+                          }
                         });
                       },
                     ),
                   ),
-                  const SizedBox(height: 5),
-                  const Text(
-                      style: TextStyle(
-                        fontSize: 30,
-                        decoration: TextDecoration.underline,
-                      ),
-                      'Luftfugtighed'),
-                  const SizedBox(height: 5),
-                  SizedBox(
-                    width: 250,
-                    child: SfRangeSlider(
-                      values: _currenthumidityRange,
-                      min: 0,
-                      max: 100,
-                      interval: 2,
-                      stepSize: 1,
-                      showLabels: true,
-                      enableTooltip: true,
-                      labelFormatterCallback: (actualValue, formattedText) {
-                        if (actualValue == 0) {
-                          return '0%';
-                        } else if (actualValue == 100) {
-                          return '100%';
-                        }
-                        return '';
-                      },
-                      tooltipTextFormatterCallback:
-                          (actualValue, formattedText) {
-                        return '$formattedText%';
-                      },
-                      onChanged: (values) {
-                        setState(() {
-                          _currenthumidityRange = values;
-                        });
-                      },
-                    ),
-                  ),
-                  Expanded(
-                      child: Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 0, 0, 30),
-                      child: MaterialButton(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          side: const BorderSide(color: Colors.grey),
-                        ),
-                        child: const Text("Slet Drivhus"),
-                        onPressed: () {
-                          //Show delete pop up modal
-                          showDialog(
-                              context: context,
-                              builder: (context) =>
-                                  const DeletePopUpDialog()).then((value) {
-                            if (value) {
-                              //If value = true, delete the greenhouse
-                            }
-                          });
-                        },
-                      ),
-                    ),
-                  ))
-                ],
-              ),
-            ],
-          ),
+                ))
+              ],
+            ),
+          ],
         ),
       ),
     );

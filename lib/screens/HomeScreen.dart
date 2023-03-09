@@ -85,7 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         style: const TextStyle(fontSize: 20),
                         widget.drivhusName),
                     const Spacer(),
-                    Text(
+                    const Text(
                       style: TextStyle(fontSize: 20),
                       "25°C",
                     ),
@@ -101,7 +101,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: MaterialButton(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
-                    side: BorderSide(color: Colors.grey),
+                    side: const BorderSide(color: Colors.grey),
                   ),
                   child: const Text("Scan for drivhuse"),
                   onPressed: () {

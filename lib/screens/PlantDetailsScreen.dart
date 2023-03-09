@@ -1,14 +1,11 @@
 import 'package:bio_veg/dialogs/ShowInfoPopUpDialog.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 import 'package:flutter/material.dart';
-
-enum PlantTypes { Custom, Tomat, Agurk, Chili, Loeg, Hvidloeg }
-
-enum EarthHumidityLevels { Meget_toer, Toer, Fugtig, Vaad, Meget_vaad }
+import 'package:bio_veg/PlantTemplate.dart';
 
 class PlantDetailsScreen extends StatefulWidget {
   late String plantName;
-  late PlantTypes type;
+  late PlantTemplates type;
   late int earthHumidity;
 
   //this constructor should take an object of a plant or other related type
@@ -16,7 +13,7 @@ class PlantDetailsScreen extends StatefulWidget {
   PlantDetailsScreen(
       {super.key,
       this.plantName = "Dev",
-      this.type = PlantTypes.Custom,
+      this.type = PlantTemplates.Custom,
       this.earthHumidity = 0});
 
   @override
@@ -45,8 +42,7 @@ class _PlantDetailsScreenState extends State<PlantDetailsScreen> {
             controller: _titleEditingController,
             style: const TextStyle(fontSize: 30),
           )),
-      body: Container(
-          child: Column(
+      body: Column(
         children: [
           //Dropdown wrapped in styling
           Padding(
@@ -62,11 +58,12 @@ class _PlantDetailsScreenState extends State<PlantDetailsScreen> {
                         borderRadius: BorderRadius.circular(5)),
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(4, 1, 4, 1),
-                      child: DropdownButton<PlantTypes>(
+                      child: DropdownButton<PlantTemplates>(
                         hint: Text(widget.type.name),
                         value: widget.type,
-                        items: PlantTypes.values.map((PlantTypes plantType) {
-                          return DropdownMenuItem<PlantTypes>(
+                        items: PlantTemplates.values
+                            .map((PlantTemplates plantType) {
+                          return DropdownMenuItem<PlantTemplates>(
                             value: plantType,
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
@@ -115,7 +112,7 @@ class _PlantDetailsScreenState extends State<PlantDetailsScreen> {
                 const Icon(Icons.water_drop,
                     color: Colors.blueAccent, size: 36),
                 Text(
-                  '${EarthHumidityLevels.Fugtig.name}',
+                  EarthHumidityLevels.Fugtig.name,
                   style: const TextStyle(fontSize: 23),
                 )
               ],
@@ -153,7 +150,10 @@ class _PlantDetailsScreenState extends State<PlantDetailsScreen> {
                   showLabels: true,
                   labelFormatterCallback: (actualValue, formattedText) {
                     return actualValue % 1 == 0
-                        ? '${EarthHumidityLevels.values[int.parse(actualValue.toString().substring(0, 1))].name}'
+                        ? EarthHumidityLevels
+                            .values[int.parse(
+                                actualValue.toString().substring(0, 1))]
+                            .name
                             .replaceAll('aa', 'å')
                             .replaceAll('_', ' ')
                             .replaceAll('oe', 'ø')
@@ -169,7 +169,7 @@ class _PlantDetailsScreenState extends State<PlantDetailsScreen> {
             ],
           ),
         ],
-      )),
+      ),
     );
   }
 }

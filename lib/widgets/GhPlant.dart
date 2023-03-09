@@ -1,3 +1,4 @@
+import 'package:bio_veg/PlantTemplate.dart';
 import 'package:bio_veg/screens/PlantDetailsScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +28,7 @@ class _GhPlantState extends State<GhPlant> {
               builder: (context) => PlantDetailsScreen(
                 plantName: "plantName",
                 earthHumidity: 80,
-                type: PlantTypes.Agurk,
+                type: PlantTemplates.Agurk,
               ),
             ));
       }),
