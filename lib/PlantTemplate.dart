@@ -1,0 +1,9 @@
+enum PlantTemplates{
+  CUSTOM,
+  TOMATO,
+  CUCUMBER,
+  PINEAPPLE,
+  ONION,
+  SPRING_ONION,
+  PEPPER
+}
