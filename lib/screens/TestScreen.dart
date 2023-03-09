@@ -2,10 +2,10 @@ import 'package:bio_veg/arduino_connector.dart';
 import 'package:flutter/material.dart';
 
 class TestScreen extends StatefulWidget {
-  const TestScreen({super.key, this.title = "Bioveg"});
+   TestScreen({super.key, this.title = "Bioveg"});
   final String title;
 
-  final ArduinoConnector conn = const ArduinoConnector();
+  final ArduinoConnector conn =  ArduinoConnector();
   
   @override
   State<TestScreen> createState() => _TestScreen();
