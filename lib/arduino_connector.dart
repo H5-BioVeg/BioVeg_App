@@ -1,5 +1,4 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:ping_discover_network_forked/ping_discover_network_forked.dart';
 class ArduinoConnector
  {
@@ -10,9 +9,6 @@ class ArduinoConnector
         
         DebugPrintCallback debugPrint = debugPrintThrottled;
         debugPrint(addr.ip);
-      }
-      else {
-        print('No');
       }
     }).onDone(() => print('Done'));
     return "dd";
