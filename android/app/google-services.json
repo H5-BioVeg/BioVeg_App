@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "703890941070",
+    "project_id": "bioveg-ca9ae",
+    "storage_bucket": "bioveg-ca9ae.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:703890941070:android:023e758e718816aed795df",
+        "android_client_info": {
+          "package_name": "com.example.bio_veg"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "703890941070-546ddvs0k36ql645gt02ca62q1fhuvf2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFT1m6Wsbcm3KgcptxXCCbMoFf9SfoTRs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "703890941070-546ddvs0k36ql645gt02ca62q1fhuvf2.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "703890941070-pnfpj6n6o1ppqefdob3u7n1j2p4k30vh.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.bioVeg"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
