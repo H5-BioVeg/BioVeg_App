@@ -1,3 +1,4 @@
+import 'package:bio_veg/classes/ArduinoConnector.dart';
 import 'package:bio_veg/classes/Greenhouse.dart';
 import 'package:bio_veg/classes/GreenhouseSetting.dart';
 import 'package:bio_veg/classes/Pot.dart';
@@ -5,14 +6,16 @@ import 'package:bio_veg/classes/SoilMoistureSettings.dart';
 
 class GreenhouseManager {
   late List<Greenhouse> greenhouses;
+  late ArduinoConnector arduinoConnector;
 
   GreenhouseManager() {
     //later
   }
 
-  List<Greenhouse> scanForGreenhouse() {
+  Future<List<Greenhouse>> scanForGreenhouse() async {
     //Code goes here
-    return List<Greenhouse>.empty();
+    arduinoConnector = ArduinoConnector();
+    return arduinoConnector.searchForGreenhouses();
   }
 
   void addGreenhouses(List<Greenhouse> ghs) {
@@ -34,21 +37,25 @@ class GreenhouseManager {
     //Code goes here
   }
 
+  //Unnecessary?
   bool changeGhName(Greenhouse gh, String newName) {
     //Code goes here
     return false;
   }
 
+  //Unnecessary?
   bool changePotName(Pot pot, String newName) {
     //Code goes here
     return false;
   }
 
+  //Unnecessary?
   bool changePotSettings(Pot pot, SoilMoistureSettings settings) {
     //Code goes here
     return false;
   }
 
+  //Unnecessary?
   bool changeGhSettings(Greenhouse gh, GreenHouseSettings settings) {
     //Code goes here
     return false;
@@ -56,5 +63,6 @@ class GreenhouseManager {
 
   void deleteGreenhouse(String id) {
     //Code goes here
+    greenhouses.removeWhere((element) => element.arduinoId == id);
   }
 }

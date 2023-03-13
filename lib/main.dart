@@ -17,7 +17,7 @@ class FrontPage extends StatelessWidget {
         primarySwatch: Colors.green,
         primaryColor: Colors.lightBlue,
       ),
-      home: const HomeScreen(title: 'Bioveg'),
+      home: HomeScreen(title: 'Bioveg'),
     );
   }
 }

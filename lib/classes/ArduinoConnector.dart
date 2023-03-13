@@ -1,4 +1,4 @@
-import 'package:bio_veg/classes/Greenhouse.dart';
+import 'package:bio_veg/classes/Podo/Greenhouse.dart';
 
 class ArduinoConnector {
   List<Greenhouse> searchForGreenhouses() {
