@@ -1,4 +1,4 @@
-import 'package:bio_veg/PlantTemplate.dart';
+import 'package:bio_veg/classes/PlantTemplate.dart';
 import 'package:bio_veg/classes/Podo/SoilMoistureSettings.dart';
 
 class Pot {

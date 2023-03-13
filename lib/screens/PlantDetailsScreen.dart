@@ -1,7 +1,7 @@
 import 'package:bio_veg/dialogs/ShowInfoPopUpDialog.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 import 'package:flutter/material.dart';
-import 'package:bio_veg/PlantTemplate.dart';
+import 'package:bio_veg/classes/PlantTemplate.dart';
 import 'package:bio_veg/classes/Podo/Pot.dart';
 
 class PlantDetailsScreen extends StatefulWidget {

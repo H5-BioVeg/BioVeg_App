@@ -26,9 +26,9 @@ class _GhPlantState extends State<GhPlant> {
             ));
       }),
       child: Ink(
-        color: Color.fromARGB(255, 42, 205, 127),
+        color: const Color.fromARGB(255, 42, 205, 127),
         child: Container(
-          constraints: BoxConstraints(maxWidth: 175, minWidth: 140),
+          constraints: const BoxConstraints(maxWidth: 175, minWidth: 140),
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
           decoration: BoxDecoration(
               //Color needs to change depending on restrictions in the plant
@@ -47,9 +47,9 @@ class _GhPlantState extends State<GhPlant> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.water_drop_outlined),
+                  const Icon(Icons.water_drop_outlined),
                   Text(
-                      style: TextStyle(fontSize: 20),
+                      style: const TextStyle(fontSize: 20),
                       widget.pot.currentSoilMoisture.toString())
                 ],
               ),

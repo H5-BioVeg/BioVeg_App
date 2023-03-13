@@ -1,6 +1,5 @@
-import 'package:bio_veg/classes/ArduinoConnector.dart';
 import 'package:bio_veg/classes/Podo/Greenhouse.dart';
-import 'package:bio_veg/classes/Podo/GreenhouseManager.dart';
+import 'package:bio_veg/classes/GreenhouseManager.dart';
 import 'package:bio_veg/screens/GreenHouseScreen.dart';
 import 'package:flutter/material.dart';
 
@@ -53,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   settings:
                                       const RouteSettings(name: "Greenhouse"),
                                   builder: (context) => GreenHouseScreen(
-                                        currentHouse: house.name,
+                                        currentHouse: house,
                                       )));
                         },
                         child: Container(

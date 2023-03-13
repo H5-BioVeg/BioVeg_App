@@ -1,7 +1,7 @@
 import 'package:bio_veg/classes/Podo/Greenhouse.dart';
 
 class ArduinoConnector {
-  List<Greenhouse> searchForGreenhouses() {
+  List<String> searchForGreenhouses() {
     //Code goes here
     return List.empty();
   }

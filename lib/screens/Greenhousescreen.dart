@@ -64,7 +64,7 @@ class GreenHouseScreen extends StatelessWidget {
                       for (int i = 0; i < currentHouse.pots.length; i++)
                         if (i % 2 == 0) ...[
                           GhPlant(pot: currentHouse.pots[i]),
-                          SizedBox(height: 10.0),
+                          const SizedBox(height: 10.0),
                         ],
                     ],
                   ),
@@ -74,7 +74,7 @@ class GreenHouseScreen extends StatelessWidget {
                       for (int i = 0; i < currentHouse.pots.length; i++)
                         if (i % 2 == 1) ...[
                           GhPlant(pot: currentHouse.pots[i]),
-                          SizedBox(height: 10.0),
+                          const SizedBox(height: 10.0),
                         ],
                     ],
                   ),

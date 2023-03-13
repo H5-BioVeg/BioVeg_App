@@ -1,8 +1,8 @@
 import 'package:bio_veg/classes/ArduinoConnector.dart';
-import 'package:bio_veg/classes/Greenhouse.dart';
-import 'package:bio_veg/classes/GreenhouseSetting.dart';
-import 'package:bio_veg/classes/Pot.dart';
-import 'package:bio_veg/classes/SoilMoistureSettings.dart';
+import 'package:bio_veg/classes/Podo/Greenhouse.dart';
+import 'package:bio_veg/classes/Podo/GreenhouseSetting.dart';
+import 'package:bio_veg/classes/Podo/Pot.dart';
+import 'package:bio_veg/classes/Podo/SoilMoistureSettings.dart';
 
 class GreenhouseManager {
   late List<Greenhouse> greenhouses;
@@ -14,12 +14,12 @@ class GreenhouseManager {
 
   Future<List<Greenhouse>> scanForGreenhouse() async {
     //Code goes here
-    arduinoConnector = ArduinoConnector();
-    return arduinoConnector.searchForGreenhouses();
+    return List.empty();
   }
 
   void addGreenhouses(List<Greenhouse> ghs) {
     //Code goes here
+    greenhouses.addAll(ghs);
   }
 
   ///Gets Greenhouses from the firebase DB
