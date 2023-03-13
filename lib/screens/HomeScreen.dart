@@ -1,4 +1,5 @@
 import 'package:bio_veg/screens/GreenHouseScreen.dart';
+import 'package:bio_veg/widgets/GhScanList.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -105,7 +106,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   child: const Text("Scan for drivhuse"),
                   onPressed: () {
-                    //SCAN NETWORK METHOD
+                    showDialog(
+                      context: context, 
+                      builder: (BuildContext context){
+                        return GhScanList();
+                      });
                   },
                 ),
               ),
