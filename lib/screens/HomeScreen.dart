@@ -1,8 +1,10 @@
 import 'package:bio_veg/screens/GreenHouseScreen.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key, this.title = "Bioveg"});
+
 
   final String drivhusName = "data2";
   final String title;
@@ -70,26 +72,36 @@ class _HomeScreenState extends State<HomeScreen> {
             const SizedBox(
               height: 15,
             ),
-            Container(
-              decoration: BoxDecoration(
-                  color: Colors.lightGreen,
-                  border: Border.all(width: 1.5),
-                  borderRadius: BorderRadius.circular(12)),
-              height: MediaQuery.of(context).size.height * 0.05,
-              width: MediaQuery.of(context).size.width * 0.65,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: Row(
-                  children: [
-                    Text(
-                        style: const TextStyle(fontSize: 20),
-                        widget.drivhusName),
-                    const Spacer(),
-                    Text(
-                      style: TextStyle(fontSize: 20),
-                      "25°C",
-                    ),
-                  ],
+            InkWell(onTap: () {
+                  // Get the Messaging service for the default app
+                  FirebaseMessaging messaging = FirebaseMessaging.instance;
+                  //messaging.sendMessage()
+
+
+
+
+                },
+              child: Container(
+                decoration: BoxDecoration(
+                    color: Colors.lightGreen,
+                    border: Border.all(width: 1.5),
+                    borderRadius: BorderRadius.circular(12)),
+                height: MediaQuery.of(context).size.height * 0.05,
+                width: MediaQuery.of(context).size.width * 0.65,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Row(
+                    children: [
+                      Text(
+                          style: const TextStyle(fontSize: 20),
+                          widget.drivhusName),
+                      const Spacer(),
+                      Text(
+                        style: TextStyle(fontSize: 20),
+                        "25°C",
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
