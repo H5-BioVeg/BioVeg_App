@@ -1,39 +1,54 @@
+import 'package:bio_veg/classes/Podo/Greenhouse.dart';
 import 'package:bio_veg/dialogs/DeletePopUpDialog.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 
 class GreenHouseSettingsScreen extends StatefulWidget {
-  const GreenHouseSettingsScreen({super.key});
+  GreenHouseSettingsScreen({super.key, required this.house});
+
+  late Greenhouse house;
 
   @override
   State<GreenHouseSettingsScreen> createState() =>
       _GreenHouseSettingsScreenState();
 }
 
-//Change this when View models have been sat up
-TextEditingController _settingsController =
-    TextEditingController.fromValue(const TextEditingValue(text: 'Flim'));
-SfRangeValues _currentTempRange = const SfRangeValues(0, 40);
-SfRangeValues _currenthumidityRange = const SfRangeValues(0, 100);
+late TextEditingController _settingsController;
 
 class _GreenHouseSettingsScreenState extends State<GreenHouseSettingsScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-          backgroundColor: Colors.greenAccent,
-          //We can make this into a widget or something, since it will be used multiple places
-          title: TextField(
-            textAlign: TextAlign.center,
-            decoration: const InputDecoration(
-              suffixIcon: Icon(Icons.mode_edit_outline_outlined),
-            ),
-            controller: _settingsController,
-            style: const TextStyle(fontSize: 30),
-          )),
-      body: Padding(
-        padding: const EdgeInsets.all(10),
-        child: Container(
+    _settingsController = TextEditingController.fromValue(
+        TextEditingValue(text: widget.house.name));
+    bool settingsChanged = false;
+    return WillPopScope(
+      //On back function
+      onWillPop: () async {
+        if (settingsChanged) {
+          //Send new changes to settings
+        }
+        return true;
+      },
+      child: Scaffold(
+        appBar: AppBar(
+            backgroundColor: Colors.greenAccent,
+            //We can make this into a widget or something, since it will be used multiple places
+            title: TextField(
+              textAlign: TextAlign.center,
+              decoration: const InputDecoration(
+                suffixIcon: Icon(Icons.mode_edit_outline_outlined),
+              ),
+              controller: _settingsController,
+              style: const TextStyle(fontSize: 30),
+              onChanged: (value) {
+                setState(() {
+                  widget.house.name = value;
+                  //Also do save db
+                });
+              },
+            )),
+        body: Padding(
+          padding: const EdgeInsets.all(10),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -49,7 +64,9 @@ class _GreenHouseSettingsScreenState extends State<GreenHouseSettingsScreen> {
                   SizedBox(
                     width: 250,
                     child: SfRangeSlider(
-                      values: _currentTempRange,
+                      values: SfRangeValues(
+                          widget.house.settings.temperatureMin,
+                          widget.house.settings.temperatureMax),
                       min: 0,
                       max: 40,
                       interval: 1,
@@ -70,7 +87,9 @@ class _GreenHouseSettingsScreenState extends State<GreenHouseSettingsScreen> {
                       },
                       onChanged: (values) {
                         setState(() {
-                          _currentTempRange = values;
+                          widget.house.settings.temperatureMin = values.start;
+                          widget.house.settings.temperatureMax = values.end;
+                          settingsChanged = true;
                         });
                       },
                     ),
@@ -86,7 +105,8 @@ class _GreenHouseSettingsScreenState extends State<GreenHouseSettingsScreen> {
                   SizedBox(
                     width: 250,
                     child: SfRangeSlider(
-                      values: _currenthumidityRange,
+                      values: SfRangeValues(widget.house.settings.humidityMin,
+                          widget.house.settings.humidityMax),
                       min: 0,
                       max: 100,
                       interval: 2,
@@ -107,7 +127,8 @@ class _GreenHouseSettingsScreenState extends State<GreenHouseSettingsScreen> {
                       },
                       onChanged: (values) {
                         setState(() {
-                          _currenthumidityRange = values;
+                          widget.house.settings.humidityMin = values.start;
+                          widget.house.settings.humidityMax = values.end;
                         });
                       },
                     ),
@@ -131,6 +152,9 @@ class _GreenHouseSettingsScreenState extends State<GreenHouseSettingsScreen> {
                                   const DeletePopUpDialog()).then((value) {
                             if (value) {
                               //If value = true, delete the greenhouse
+                              //Delete greenhouse
+                              Navigator.of(context)
+                                  .popUntil(ModalRoute.withName('/'));
                             }
                           });
                         },

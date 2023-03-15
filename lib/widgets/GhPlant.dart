@@ -1,13 +1,11 @@
+import 'package:bio_veg/classes/Podo/Pot.dart';
 import 'package:bio_veg/screens/PlantDetailsScreen.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 class GhPlant extends StatefulWidget {
-  const GhPlant({super.key, this.plantName = "Test"});
+  const GhPlant({super.key, required this.pot});
 
-  final String plantName;
+  final Pot pot;
 
   @override
   State<GhPlant> createState() => _GhPlantState();
@@ -24,17 +22,14 @@ class _GhPlantState extends State<GhPlant> {
         Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => PlantDetailsScreen(
-                plantName: "plantName",
-                earthHumidity: 80,
-                type: PlantTypes.Agurk,
-              ),
+              settings: RouteSettings(name: "pots/${widget.pot.name}"),
+              builder: (context) => PlantDetailsScreen(plant: widget.pot),
             ));
       }),
       child: Ink(
-        color: Color.fromARGB(255, 42, 205, 127),
+        color: const Color.fromARGB(255, 42, 205, 127),
         child: Container(
-          constraints: BoxConstraints(maxWidth: 175, minWidth: 140),
+          constraints: const BoxConstraints(maxWidth: 175, minWidth: 140),
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
           decoration: BoxDecoration(
               //Color needs to change depending on restrictions in the plant
@@ -48,13 +43,15 @@ class _GhPlantState extends State<GhPlant> {
                 child: Text(
                     style: const TextStyle(
                         fontSize: 28, fontWeight: FontWeight.bold),
-                    widget.plantName),
+                    widget.pot.name),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Icon(Icons.water_drop_outlined),
-                  Text(style: TextStyle(fontSize: 20), "Fugt mål"),
+                children: [
+                  const Icon(Icons.water_drop_outlined),
+                  Text(
+                      style: const TextStyle(fontSize: 20),
+                      widget.pot.currentSoilMoisture.toString())
                 ],
               ),
             ],

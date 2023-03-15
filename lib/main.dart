@@ -4,24 +4,19 @@ import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:bio_veg/NotificationService.Dart';
 
-
-
 void main() async {
-  
   WidgetsFlutterBinding.ensureInitialized();
   await LocalNoticeService().setup();
 
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-LocalNoticeService().addNotification(
-  'Notification Title',
-  'Notification Body',
-  channel: 'testing',
-);
+  LocalNoticeService().addNotification(
+    'Notification Title',
+    'Notification Body',
+    channel: 'testing',
+  );
 
-
-  
   // final fcmToken = await FirebaseMessaging.instance.getToken();
   // print(fcmToken);
   runApp(const FrontPage());
@@ -39,9 +34,7 @@ class FrontPage extends StatelessWidget {
         primarySwatch: Colors.green,
         primaryColor: Colors.lightBlue,
       ),
-      home: const HomeScreen(title: 'Bioveg'),
+      home: HomeScreen(title: 'Bioveg'),
     );
   }
 }
-
-

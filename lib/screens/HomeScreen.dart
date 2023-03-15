@@ -1,3 +1,5 @@
+import 'package:bio_veg/classes/Podo/Greenhouse.dart';
+import 'package:bio_veg/classes/GreenhouseManager.dart';
 import 'package:bio_veg/screens/GreenHouseScreen.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -5,9 +7,8 @@ import 'package:flutter/material.dart';
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key, this.title = "Bioveg"});
 
-
-  final String drivhusName = "data2";
   final String title;
+  final GreenhouseManager manager = GreenhouseManager();
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -25,85 +26,65 @@ class _HomeScreenState extends State<HomeScreen> {
         )),
       ),
       body: Center(
-        //REplace this COLUMNS CHILDREN WITH A FUTURE BUILDER
         child: Column(
           children: [
             const SizedBox(
               height: 20,
             ),
-            Padding(
-              padding: const EdgeInsets.all(6.0),
-              child: InkWell(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const GreenHouseScreen(
-                              houseName: "Temp Name",
-                            )),
-                  );
-                },
-                child: Container(
-                  decoration: BoxDecoration(
-                      color: Colors.blue,
-                      border: Border.all(width: 1.5),
-                      borderRadius: BorderRadius.circular(12)),
-                  height: MediaQuery.of(context).size.height * 0.05,
-                  width: MediaQuery.of(context).size.width * 0.65,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Row(
-                      children: const [
-                        Text(
-                          style: TextStyle(fontSize: 20),
-                          "data",
+            //Builder for greenhouses
+            FutureBuilder<List<Greenhouse>>(
+              //Get db from database if any
+              future: widget.manager.getGreenhousesFromDb('ownerId'),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  List<Greenhouse> greenhouses =
+                      snapshot.data!.toList(growable: true);
+
+                  //Loop through greenhouses and create buttons
+                  for (Greenhouse house in greenhouses) {
+                    return Padding(
+                      padding: const EdgeInsets.all(6.0),
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  settings: RouteSettings(
+                                      name: "greenhouses/${house.name}"),
+                                  builder: (context) => GreenHouseScreen(
+                                        currentHouse: house,
+                                      )));
+                        },
+                        child: Container(
+                          height: MediaQuery.of(context).size.height * 0.05,
+                          width: MediaQuery.of(context).size.width * 0.65,
+                          decoration: BoxDecoration(
+                            color: Colors.blue,
+                            border: Border.all(width: 1.5),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: Row(
+                              children: [
+                                Text(
+                                    style: const TextStyle(fontSize: 20),
+                                    house.name),
+                                const Spacer(),
+                                Text(
+                                  style: const TextStyle(fontSize: 20),
+                                  '${house.temperature}°C',
+                                ),
+                              ],
+                            ),
+                          ),
                         ),
-                        Spacer(),
-                        Text(
-                          style: TextStyle(fontSize: 20),
-                          "25°C",
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            InkWell(onTap: () {
-                  // Get the Messaging service for the default app
-                  FirebaseMessaging messaging = FirebaseMessaging.instance;
-                  //messaging.sendMessage()
-
-
-
-
-                },
-              child: Container(
-                decoration: BoxDecoration(
-                    color: Colors.lightGreen,
-                    border: Border.all(width: 1.5),
-                    borderRadius: BorderRadius.circular(12)),
-                height: MediaQuery.of(context).size.height * 0.05,
-                width: MediaQuery.of(context).size.width * 0.65,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: Row(
-                    children: [
-                      Text(
-                          style: const TextStyle(fontSize: 20),
-                          widget.drivhusName),
-                      const Spacer(),
-                      Text(
-                        style: TextStyle(fontSize: 20),
-                        "25°C",
                       ),
-                    ],
-                  ),
-                ),
-              ),
+                    );
+                  }
+                }
+                return Container();
+              },
             ),
             Expanded(
                 child: Align(
@@ -113,11 +94,21 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: MaterialButton(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
-                    side: BorderSide(color: Colors.grey),
+                    side: const BorderSide(color: Colors.grey),
                   ),
                   child: const Text("Scan for drivhuse"),
-                  onPressed: () {
+                  onPressed: () async {
                     //SCAN NETWORK METHOD
+                    /* List<Greenhouse> allGreenHouses = await widget.manager
+                        .scanForGreenhouse(); //.then((value) => null);
+                    List<Greenhouse> uniqueHouses = widget.manager.greenhouses
+                        .where((element) => !allGreenHouses.contains(element))
+                        .toList();
+
+                    setState(() async {
+                      //Use chosen houses instead of unique.
+                      widget.manager.addGreenhouses(uniqueHouses);
+                    }); */
                   },
                 ),
               ),
