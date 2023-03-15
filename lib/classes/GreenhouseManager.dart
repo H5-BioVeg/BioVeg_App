@@ -1,4 +1,5 @@
 import 'package:bio_veg/classes/ArduinoConnector.dart';
+import 'package:bio_veg/classes/FirebaseDbConnector.dart';
 import 'package:bio_veg/classes/Podo/Greenhouse.dart';
 import 'package:bio_veg/classes/Podo/GreenhouseSetting.dart';
 import 'package:bio_veg/classes/Podo/Pot.dart';
@@ -29,8 +30,11 @@ class GreenhouseManager {
   ///Need to be async if return type is Future
   Future<List<Greenhouse>> getGreenhousesFromDb(String ownerId) async {
     //Code goes here
-    await Future.delayed(Duration(seconds: 2));
-    return List<Greenhouse>.empty();
+    FirebaseDbConnector conn = FirebaseDbConnector();
+
+    String json = await conn.getGreenhousesFromDb('dsa');
+    print(json);
+    return List.empty();
   }
 
   void getSensorReadings(String ardId) {

@@ -99,7 +99,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: const Text("Scan for drivhuse"),
                   onPressed: () async {
                     //SCAN NETWORK METHOD
-                    List<Greenhouse> allGreenHouses = await widget.manager
+                    /* List<Greenhouse> allGreenHouses = await widget.manager
                         .scanForGreenhouse(); //.then((value) => null);
                     List<Greenhouse> uniqueHouses = widget.manager.greenhouses
                         .where((element) => !allGreenHouses.contains(element))
@@ -108,7 +108,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     setState(() async {
                       //Use chosen houses instead of unique.
                       widget.manager.addGreenhouses(uniqueHouses);
-                    });
+                    }); */
                   },
                 ),
               ),
