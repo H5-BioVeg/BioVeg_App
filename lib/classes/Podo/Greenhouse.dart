@@ -6,8 +6,8 @@ class Greenhouse {
   late List<Pot> pots;
   late String name;
   late GreenHouseSettings settings;
-  late Float temperature;
-  late Float humidity;
+  late int temperature;
+  late int humidity;
   late String arduinoId;
 
   Greenhouse(GreenHouseSettings ghSettings) {
@@ -15,18 +15,17 @@ class Greenhouse {
   }
 
   factory Greenhouse.fromJson(Map<String, dynamic> json) {
+    print(json);
     Greenhouse gh = Greenhouse(GreenHouseSettings.fromJson(json['ghSettings']));
     gh.name = json['name'];
     gh.temperature = json['temperature'];
     gh.humidity = json['humidity'];
     gh.arduinoId = json['masterId'];
-
-    final potsData = json['pots'] as List<dynamic>;
-    for (var i = 0; i < potsData!.length; i++) {
-      if (potsData[i] != null) {
-        gh.pots.add(Pot.fromJson(potsData[i]));
-      }
-    }
+    gh.pots = List.empty(growable: true);
+    Map<String, dynamic> potsData = json['pots'];
+    potsData.forEach((key, value) {
+      gh.pots.add(Pot.fromJson(value));
+    });
     return gh;
   }
 
@@ -35,8 +34,8 @@ class Greenhouse {
     data['name'] = name;
     data['temperature'] = temperature;
     data['humidity'] = humidity;
-    data['arduinoId'] = arduinoId;
-    data['settings'] = settings.toJson();
+    data['masterId'] = arduinoId;
+    data['ghSettings'] = settings.toJson();
 
     if (pots != null) {
       data['pots'] = pots!.map((v) => v.toJson()).toList();

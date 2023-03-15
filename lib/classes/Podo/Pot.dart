@@ -7,19 +7,21 @@ class Pot {
   late PlantTemplates plantTemplate;
   late int currentSoilMoisture;
 
-  Pot(String name, PlantTemplates template, int currentMoisture,
+  Pot(String name2, PlantTemplates template, int currentMoisture,
       SoilMoistureSettings settings) {
-    name = name;
+    name = name2;
     plantTemplate = template;
     currentSoilMoisture = currentMoisture;
     soilMoistureSettings = settings;
   }
 
   factory Pot.fromJson(dynamic json) {
+    print(json);
     return Pot(
       json['name'],
       PlantTemplates.values[json['plantTemplate']],
-      json['currentMoisture'],
+      //THIS NEEDS TO BE ENUM!!!!
+      json['currentSoilMoisture'],
       SoilMoistureSettings.fromJson(json['soilMoistureSettings']),
     );
   }

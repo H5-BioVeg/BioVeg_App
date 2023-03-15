@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:bio_veg/classes/ArduinoConnector.dart';
 import 'package:bio_veg/classes/FirebaseDbConnector.dart';
 import 'package:bio_veg/classes/Podo/Greenhouse.dart';
@@ -32,9 +34,20 @@ class GreenhouseManager {
     //Code goes here
     FirebaseDbConnector conn = FirebaseDbConnector();
 
-    String json = await conn.getGreenhousesFromDb('dsa');
-    print(json);
-    return List.empty();
+    Object? dddd = (await conn.getGreenhousesFromDb('dsa'));
+
+    String dd = jsonEncode(dddd);
+    Map<String, dynamic> ee = json.decode(dd);
+    
+    List<Greenhouse> greenhouses = List.empty(growable: true);
+
+    Map<String, dynamic> de = ee['greenhouses'];
+    de.forEach((key, value) {
+      greenhouses.add(Greenhouse.fromJson(value));
+      
+    });
+    print(greenhouses[0]);
+    return greenhouses;
   }
 
   void getSensorReadings(String ardId) {
