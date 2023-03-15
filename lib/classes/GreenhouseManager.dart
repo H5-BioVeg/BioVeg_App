@@ -32,7 +32,7 @@ class GreenhouseManager {
     //Code goes here
     FirebaseDbConnector conn = FirebaseDbConnector();
 
-    String json = await conn.getGreenhousesFromDb('dsa');
+    String json = await conn.getGreenhousesFromDb(ownerId);
     print(json);
     return List.empty();
   }

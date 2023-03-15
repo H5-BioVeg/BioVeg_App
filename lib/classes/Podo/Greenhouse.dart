@@ -22,7 +22,7 @@ class Greenhouse {
     gh.arduinoId = json['masterId'];
 
     final potsData = json['pots'] as List<dynamic>;
-    for (var i = 0; i < potsData!.length; i++) {
+    for (var i = 0; i < potsData.length; i++) {
       if (potsData[i] != null) {
         gh.pots.add(Pot.fromJson(potsData[i]));
       }
@@ -38,9 +38,7 @@ class Greenhouse {
     data['arduinoId'] = arduinoId;
     data['settings'] = settings.toJson();
 
-    if (pots != null) {
-      data['pots'] = pots!.map((v) => v.toJson()).toList();
-    }
+    data['pots'] = pots.map((v) => v.toJson()).toList();
     return data;
   }
 }

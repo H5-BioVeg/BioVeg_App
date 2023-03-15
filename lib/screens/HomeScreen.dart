@@ -36,7 +36,6 @@ class _HomeScreenState extends State<HomeScreen> {
               future: widget.manager.getGreenhousesFromDb('ownerId'),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
-                  //Make some sort of conversion to greenhouses from gotten data
                   List<Greenhouse> greenhouses =
                       snapshot.data!.toList(growable: true);
 
@@ -49,8 +48,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  settings:
-                                      const RouteSettings(name: "Greenhouse"),
+                                  settings: RouteSettings(
+                                      name: "greenhouses/${house.name}"),
                                   builder: (context) => GreenHouseScreen(
                                         currentHouse: house,
                                       )));

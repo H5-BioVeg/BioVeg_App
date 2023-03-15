@@ -22,6 +22,7 @@ class _GhPlantState extends State<GhPlant> {
         Navigator.push(
             context,
             MaterialPageRoute(
+              settings: RouteSettings(name: "pots/${widget.pot.name}"),
               builder: (context) => PlantDetailsScreen(plant: widget.pot),
             ));
       }),
