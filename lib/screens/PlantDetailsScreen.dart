@@ -27,6 +27,8 @@ class _PlantDetailsScreenState extends State<PlantDetailsScreen> {
     //On back widget and function
     return WillPopScope(
       onWillPop: () async {
+        //Get route name
+        //ModalRoute.of(context).settings.name
         //Save changes if any
         if (settingsChanged) {}
         return true;

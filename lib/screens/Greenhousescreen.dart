@@ -23,6 +23,7 @@ class GreenHouseScreen extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute(
+                      settings: const RouteSettings(name: "ghSettings"),
                       builder: (context) => GreenHouseSettingsScreen(
                             house: currentHouse,
                           )));
