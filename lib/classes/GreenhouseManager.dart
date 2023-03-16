@@ -34,14 +34,14 @@ class GreenhouseManager {
     //Code goes here
     FirebaseDbConnector conn = FirebaseDbConnector();
 
-    Object? dddd = (await conn.getGreenhousesFromDb('dsa'));
+    Object? dbContent = (await conn.getGreenhousesFromDb('dsa'));
 
-    String dd = jsonEncode(dddd);
-    Map<String, dynamic> ee = json.decode(dd);
+    String dbCStr = jsonEncode(dbContent);
+    Map<String, dynamic> dbCMap = json.decode(dbCStr);
     
     List<Greenhouse> greenhouses = List.empty(growable: true);
 
-    Map<String, dynamic> de = ee['greenhouses'];
+    Map<String, dynamic> de = dbCMap['greenhouses'];
     de.forEach((key, value) {
       greenhouses.add(Greenhouse.fromJson(value));
       
