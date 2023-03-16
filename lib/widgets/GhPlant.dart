@@ -2,6 +2,8 @@ import 'package:bio_veg/classes/Podo/Pot.dart';
 import 'package:bio_veg/screens/PlantDetailsScreen.dart';
 import 'package:flutter/material.dart';
 
+import '../classes/Enums.dart';
+
 class GhPlant extends StatefulWidget {
   const GhPlant({super.key, required this.pot});
 
@@ -50,7 +52,13 @@ class _GhPlantState extends State<GhPlant> {
                   const Icon(Icons.water_drop_outlined),
                   Text(
                       style: const TextStyle(fontSize: 20),
-                      widget.pot.currentSoilMoisture.toString())
+                      EarthHumidityLevels
+                        .values[widget.pot.currentSoilMoisture].name
+                          .replaceAll('aa', 'å')
+                          .replaceAll('_', ' ')
+                          .replaceAll('oe', 'ø')
+                          ,
+                  )
                 ],
               ),
             ],

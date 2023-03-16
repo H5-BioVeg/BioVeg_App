@@ -1,3 +1,4 @@
+import 'package:bio_veg/classes/Enums.dart';
 import 'package:flutter/foundation.dart';
 
 class SoilMoistureSettings {
@@ -5,8 +6,8 @@ class SoilMoistureSettings {
   late int soilMoistureMax;
 
   SoilMoistureSettings(int soilMin, int soilMax) {
-    soilMoistureMin = soilMin;
-    soilMoistureMax = soilMax;
+    soilMoistureMin = getEnumHumVal(soilMin);
+    soilMoistureMax = getEnumHumVal(soilMax);
   }
 
   factory SoilMoistureSettings.fromJson(dynamic json) {

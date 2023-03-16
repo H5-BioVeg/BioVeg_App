@@ -1,7 +1,7 @@
 import 'package:bio_veg/dialogs/ShowInfoPopUpDialog.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 import 'package:flutter/material.dart';
-import 'package:bio_veg/classes/PlantTemplate.dart';
+import 'package:bio_veg/classes/Enums.dart';
 import 'package:bio_veg/classes/Podo/Pot.dart';
 
 class PlantDetailsScreen extends StatefulWidget {
@@ -124,7 +124,11 @@ class _PlantDetailsScreenState extends State<PlantDetailsScreen> {
                       color: Colors.blueAccent, size: 36),
                   Text(
                     EarthHumidityLevels
-                        .values[widget.plant.currentSoilMoisture].name,
+                        .values[widget.plant.currentSoilMoisture].name
+                          .replaceAll('aa', 'å')
+                          .replaceAll('_', ' ')
+                          .replaceAll('oe', 'ø')
+                          ,
                     style: const TextStyle(fontSize: 23),
                   )
                 ],
@@ -177,9 +181,9 @@ class _PlantDetailsScreenState extends State<PlantDetailsScreen> {
                     onChanged: (values) {
                       setState(() {
                         widget.plant.soilMoistureSettings.soilMoistureMin =
-                            values.start;
+                            values.start.toInt();
                         widget.plant.soilMoistureSettings.soilMoistureMax =
-                            values.end;
+                            values.end.toInt();
                         settingsChanged = true;
                       });
                     },

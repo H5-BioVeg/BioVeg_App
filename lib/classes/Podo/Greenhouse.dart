@@ -23,6 +23,7 @@ class Greenhouse {
     gh.arduinoId = json['masterId'];
     gh.pots = List.empty(growable: true);
     Map<String, dynamic> potsData = json['pots'];
+    
     potsData.forEach((key, value) {
       gh.pots.add(Pot.fromJson(value));
     });

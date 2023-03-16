@@ -87,8 +87,8 @@ class _GreenHouseSettingsScreenState extends State<GreenHouseSettingsScreen> {
                       },
                       onChanged: (values) {
                         setState(() {
-                          widget.house.settings.temperatureMin = values.start;
-                          widget.house.settings.temperatureMax = values.end;
+                          widget.house.settings.temperatureMin = values.start.toInt();
+                          widget.house.settings.temperatureMax = values.end.toInt();
                           settingsChanged = true;
                         });
                       },
@@ -127,8 +127,8 @@ class _GreenHouseSettingsScreenState extends State<GreenHouseSettingsScreen> {
                       },
                       onChanged: (values) {
                         setState(() {
-                          widget.house.settings.humidityMin = values.start;
-                          widget.house.settings.humidityMax = values.end;
+                          widget.house.settings.humidityMin = values.start.toInt();
+                          widget.house.settings.humidityMax = values.end.toInt();
                         });
                       },
                     ),

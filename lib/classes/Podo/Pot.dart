@@ -1,5 +1,6 @@
-import 'package:bio_veg/classes/PlantTemplate.dart';
+import 'package:bio_veg/classes/Enums.dart';
 import 'package:bio_veg/classes/Podo/SoilMoistureSettings.dart';
+import 'package:flutter/material.dart';
 
 class Pot {
   late String name;
@@ -11,7 +12,8 @@ class Pot {
       SoilMoistureSettings settings) {
     name = name2;
     plantTemplate = template;
-    currentSoilMoisture = currentMoisture;
+    currentSoilMoisture = getEnumHumVal(currentMoisture);
+    print(currentSoilMoisture);
     soilMoistureSettings = settings;
   }
 
@@ -20,7 +22,6 @@ class Pot {
     return Pot(
       json['name'],
       PlantTemplates.values[json['plantTemplate']],
-      //THIS NEEDS TO BE ENUM!!!!
       json['currentSoilMoisture'],
       SoilMoistureSettings.fromJson(json['soilMoistureSettings']),
     );
