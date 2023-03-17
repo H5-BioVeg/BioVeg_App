@@ -6,7 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   test('Can fetch jsonData from Firebasedb', () async {
     final FirebaseDbConnector connector = FirebaseDbConnector();
-    String json = await connector.getGreenhousesFromDb('/');
+    String json = await connector.getGreenhousesFromDb().toString();
     expect(json, isNot(''));
     expect(json, isNot(null));
     expect(json.length, isNot(0));

@@ -1,4 +1,3 @@
-import 'dart:ffi';
 import 'package:bio_veg/classes/Podo/GreenhouseSetting.dart';
 import 'package:bio_veg/classes/Podo/Pot.dart';
 
@@ -23,7 +22,7 @@ class Greenhouse {
     gh.arduinoId = json['masterId'];
     gh.pots = List.empty(growable: true);
     Map<String, dynamic> potsData = json['pots'];
-    
+
     potsData.forEach((key, value) {
       gh.pots.add(Pot.fromJson(value));
     });
@@ -37,10 +36,7 @@ class Greenhouse {
     data['humidity'] = humidity;
     data['masterId'] = arduinoId;
     data['ghSettings'] = settings.toJson();
-
-    if (pots != null) {
-      data['pots'] = pots!.map((v) => v.toJson()).toList();
-    }
+    data['pots'] = pots.map((v) => v.toJson()).toList();
     return data;
   }
 }

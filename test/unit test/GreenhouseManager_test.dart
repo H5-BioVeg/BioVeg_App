@@ -1,5 +1,5 @@
 import 'package:bio_veg/classes/GreenhouseManager.dart';
-import 'package:bio_veg/classes/PlantTemplate.dart';
+import 'package:bio_veg/classes/Enums.dart';
 import 'package:bio_veg/classes/Podo/Greenhouse.dart';
 import 'package:bio_veg/classes/Podo/GreenhouseSetting.dart';
 import 'package:bio_veg/classes/Podo/Pot.dart';
@@ -7,22 +7,16 @@ import 'package:bio_veg/classes/Podo/SoilMoistureSettings.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  test('Add House to Existing houses', () {
-    final GreenhouseManager manager = GreenhouseManager();
-    Greenhouse newHouse = Greenhouse(GreenHouseSettings(1, 40, 1, 40));
-
-    manager.greenhouses = List.empty(growable: true);
-    manager.greenhouses.add(Greenhouse(GreenHouseSettings(0, 0, 0, 0)));
-    manager.addGreenhouses(List.filled(1, newHouse));
-
-    expect(manager.greenhouses, isNot(null));
-    expect(manager.greenhouses.length, isNot(1));
-  });
-
   test('Can fetch data from Firebasedb', () async {
     final GreenhouseManager manager = GreenhouseManager();
-    List<Greenhouse> houses = await manager.getGreenhousesFromDb('');
+    List<Greenhouse> houses = await manager.getGreenhousesFromDb();
     expect(houses, isNot(null));
+  });
+
+  test('Throws error on empty data', () async {
+    final GreenhouseManager manager = GreenhouseManager();
+    expect(manager.getGreenhousesFromDb(),
+        throwsA(const TypeMatcher<Exception>()));
   });
 
   test('Can change greenhouse name', () {

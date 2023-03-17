@@ -1,5 +1,6 @@
 import 'package:bio_veg/classes/Podo/Greenhouse.dart';
 import 'package:bio_veg/classes/GreenhouseManager.dart';
+import 'package:bio_veg/classes/Services/ConvertToColor.dart';
 import 'package:bio_veg/screens/GreenHouseScreen.dart';
 import 'package:flutter/material.dart';
 
@@ -33,7 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
             //Builder for greenhouses
             FutureBuilder<List<Greenhouse>>(
               //Get db from database if any
-              future: widget.manager.getGreenhousesFromDb('ownerId'),
+              future: widget.manager.getGreenhousesFromDb(),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   List<Greenhouse> greenhouses =
@@ -51,6 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   settings: RouteSettings(
                                       name: "greenhouses/${house.name}"),
                                   builder: (context) => GreenHouseScreen(
+                                        manager: widget.manager,
                                         currentHouse: house,
                                       )));
                         },
@@ -58,7 +60,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           height: MediaQuery.of(context).size.height * 0.05,
                           width: MediaQuery.of(context).size.width * 0.65,
                           decoration: BoxDecoration(
-                            color: Colors.blue,
+                            color:
+                                ConvertToColor.convertGreenhouseToColor(house),
                             border: Border.all(width: 1.5),
                             borderRadius: BorderRadius.circular(12),
                           ),

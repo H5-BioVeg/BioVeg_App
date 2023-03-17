@@ -1,5 +1,4 @@
 import 'package:bio_veg/classes/Enums.dart';
-import 'package:flutter/foundation.dart';
 
 class SoilMoistureSettings {
   late int soilMoistureMin;

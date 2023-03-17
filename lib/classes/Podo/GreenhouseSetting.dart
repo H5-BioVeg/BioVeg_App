@@ -1,5 +1,3 @@
-import 'package:flutter/foundation.dart';
-
 class GreenHouseSettings {
   late int temperatureMin;
   late int temperatureMax;

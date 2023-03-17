@@ -1,6 +1,5 @@
 import 'package:bio_veg/classes/Enums.dart';
 import 'package:bio_veg/classes/Podo/SoilMoistureSettings.dart';
-import 'package:flutter/material.dart';
 
 class Pot {
   late String name;

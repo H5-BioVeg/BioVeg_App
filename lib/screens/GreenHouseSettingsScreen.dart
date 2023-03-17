@@ -2,29 +2,30 @@ import 'package:bio_veg/classes/Podo/Greenhouse.dart';
 import 'package:bio_veg/dialogs/DeletePopUpDialog.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
+import '../classes/GreenhouseManager.dart';
 
 class GreenHouseSettingsScreen extends StatefulWidget {
-  GreenHouseSettingsScreen({super.key, required this.house});
+  GreenHouseSettingsScreen(
+      {super.key, required this.house, required this.manager});
 
   late Greenhouse house;
+  late final GreenhouseManager manager;
+  bool _settingsChanged = false;
+  late final _settingsController =
+      TextEditingController.fromValue(TextEditingValue(text: house.name));
 
   @override
   State<GreenHouseSettingsScreen> createState() =>
       _GreenHouseSettingsScreenState();
 }
 
-late TextEditingController _settingsController;
-
 class _GreenHouseSettingsScreenState extends State<GreenHouseSettingsScreen> {
   @override
   Widget build(BuildContext context) {
-    _settingsController = TextEditingController.fromValue(
-        TextEditingValue(text: widget.house.name));
-    bool settingsChanged = false;
     return WillPopScope(
       //On back function
       onWillPop: () async {
-        if (settingsChanged) {
+        if (widget._settingsChanged) {
           //Send new changes to settings
         }
         return true;
@@ -38,7 +39,7 @@ class _GreenHouseSettingsScreenState extends State<GreenHouseSettingsScreen> {
               decoration: const InputDecoration(
                 suffixIcon: Icon(Icons.mode_edit_outline_outlined),
               ),
-              controller: _settingsController,
+              controller: widget._settingsController,
               style: const TextStyle(fontSize: 30),
               onChanged: (value) {
                 setState(() {
@@ -87,9 +88,11 @@ class _GreenHouseSettingsScreenState extends State<GreenHouseSettingsScreen> {
                       },
                       onChanged: (values) {
                         setState(() {
-                          widget.house.settings.temperatureMin = values.start.toInt();
-                          widget.house.settings.temperatureMax = values.end.toInt();
-                          settingsChanged = true;
+                          widget.house.settings.temperatureMin =
+                              values.start.toInt();
+                          widget.house.settings.temperatureMax =
+                              values.end.toInt();
+                          widget._settingsChanged = true;
                         });
                       },
                     ),
@@ -127,8 +130,11 @@ class _GreenHouseSettingsScreenState extends State<GreenHouseSettingsScreen> {
                       },
                       onChanged: (values) {
                         setState(() {
-                          widget.house.settings.humidityMin = values.start.toInt();
-                          widget.house.settings.humidityMax = values.end.toInt();
+                          widget.house.settings.humidityMin =
+                              values.start.toInt();
+                          widget.house.settings.humidityMax =
+                              values.end.toInt();
+                          widget._settingsChanged = true;
                         });
                       },
                     ),
