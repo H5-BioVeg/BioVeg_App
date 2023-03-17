@@ -25,5 +25,10 @@ public final class GeneratedPluginRegistrant {
     } catch(Exception e) {
       Log.e(TAG, "Error registering plugin firebase_database, io.flutter.plugins.firebase.database.FirebaseDatabasePlugin", e);
     }
+    try {
+      flutterEngine.getPlugins().add(new be.tramckrijte.workmanager.WorkmanagerPlugin());
+    } catch(Exception e) {
+      Log.e(TAG, "Error registering plugin workmanager, be.tramckrijte.workmanager.WorkmanagerPlugin", e);
+    }
   }
 }

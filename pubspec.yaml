@@ -39,6 +39,7 @@ dependencies:
   syncfusion_flutter_sliders: ^20.4.53
   firebase_core: ^2.7.1
   firebase_database: ^10.0.15
+  workmanager: ^0.5.1
 
 dev_dependencies:
   flutter_test:

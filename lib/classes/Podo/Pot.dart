@@ -13,12 +13,10 @@ class Pot {
     name = name2;
     plantTemplate = template;
     currentSoilMoisture = getEnumHumVal(currentMoisture);
-    print(currentSoilMoisture);
     soilMoistureSettings = settings;
   }
 
   factory Pot.fromJson(dynamic json) {
-    print(json);
     return Pot(
       json['name'],
       PlantTemplates.values[json['plantTemplate']],
