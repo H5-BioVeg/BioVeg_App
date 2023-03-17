@@ -46,14 +46,14 @@ class GreenhouseManager {
   ///Returns a list of greenhouses
   ///
   ///Need to be async if return type is Future
-  Future<List<Greenhouse>> getGreenhousesFromDb(String ownerId) async {
+  Future<List<Greenhouse>> getGreenhousesFromDb() async {
     //Make a new list to hold the greenhouses
 
     try {
       FirebaseDbConnector conn = FirebaseDbConnector();
 
       //Get the info from database
-      String dbContent = (await conn.getGreenhousesFromDb('dsa'));
+      String dbContent = (await conn.getGreenhousesFromDb());
 
       //Map
       Map<String, dynamic> dbCMap = json.decode(dbContent.toString());
