@@ -20,9 +20,11 @@ class Greenhouse {
     gh.temperature = json['temperature'];
     gh.humidity = json['humidity'];
     gh.arduinoId = json['masterId'];
+    //Create a list for all the pots in the greenhouse
     gh.pots = List.empty(growable: true);
+    //Create Map of the pots in the greenhouse
     Map<String, dynamic> potsData = json['pots'];
-
+    //Go through each pot and create an object of each one
     potsData.forEach((key, value) {
       gh.pots.add(Pot.fromJson(value));
     });
