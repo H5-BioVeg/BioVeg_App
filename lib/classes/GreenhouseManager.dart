@@ -4,31 +4,14 @@ import 'package:bio_veg/classes/Podo/Greenhouse.dart';
 import 'package:bio_veg/classes/Podo/GreenhouseSetting.dart';
 import 'package:bio_veg/classes/Podo/Pot.dart';
 import 'package:bio_veg/classes/Podo/SoilMoistureSettings.dart';
-import 'package:workmanager/workmanager.dart';
 
-//MOVE TO MAIN
-@pragma(
-    'vm:entry-point') // Mandatory if the App is obfuscated or using Flutter 3.1+
-void callbackDispatcher() {
-  Workmanager().executeTask((task, inputData) {
-    GreenhouseManager().getSensorReadings("ardId");
-
-    return Future.value(true);
-  });
-}
 
 class GreenhouseManager {
   late List<Greenhouse> greenhouses;
 
   GreenhouseManager() {
-    greenhouses = List.empty(growable: true);
-    Workmanager().initialize(
-        callbackDispatcher, // The top level function, aka callbackDispatcher
-        isInDebugMode:
-            true // If enabled it will post a notification whenever the task is running. Handy for debugging tasks
-        );
-    Workmanager().registerOneOffTask("sensorReadingsTask", "sensorTask",
-        initialDelay: Duration(minutes: 2));
+    
+    
   }
 
   Future<List<Greenhouse>> scanForGreenhouse() async {
@@ -48,7 +31,8 @@ class GreenhouseManager {
   ///Need to be async if return type is Future
   Future<List<Greenhouse>> getGreenhousesFromDb() async {
     //Make a new list to hold the greenhouses
-
+    greenhouses = List.empty(growable: true);
+    
     try {
       FirebaseDbConnector conn = FirebaseDbConnector();
 
@@ -73,7 +57,6 @@ class GreenhouseManager {
 
   Future<void> getSensorReadings(String ardId) async {
     try {
-      print(greenhouses.length);
       if (greenhouses.isNotEmpty) {
         FirebaseDbConnector conn = FirebaseDbConnector();
         //Get data from database
@@ -81,10 +64,10 @@ class GreenhouseManager {
 
         Map<String, dynamic> greenMap = json.decode(dbContent);
 
-        // greenhouses.forEach((element) {
-        //   if (element.arduinoId == "d") {}
-        // });
-        print(greenMap.keys);
+        greenhouses.forEach((element) {
+          if (element.arduinoId == "d") {}
+        });
+          print(greenMap.keys);
       }
     } catch (e) {
       print("erferfefefeffegegegg  ${e}");

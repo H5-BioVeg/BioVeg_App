@@ -6,7 +6,7 @@ class FirebaseDbConnector {
 
   Future<String> getGreenhousesFromDb() async {
     //Code goes here
-    DatabaseReference ref = database.ref('/');
+    DatabaseReference ref = database.ref();
     //Get entire db
     final snapshot = await ref.get();
     if (snapshot.exists) {
@@ -19,7 +19,7 @@ class FirebaseDbConnector {
   }
 
   Future<String> getSensorReadings() async {
-    DatabaseReference ref = database.ref("/greenhouses");
+    DatabaseReference ref = database.ref("");
 
     final snapshot = await ref.get();
     if (snapshot.exists) {

@@ -7,20 +7,27 @@ class Pot {
   late PlantTemplates plantTemplate;
   late int currentSoilMoisture;
 
-  Pot(String name2, PlantTemplates template, int currentMoisture,
-      SoilMoistureSettings settings) {
-    name = name2;
-    plantTemplate = template;
+  // Pot(String name2, PlantTemplates template, int currentMoisture,
+  //     SoilMoistureSettings settings) {
+  //   name = name2;
+  //   plantTemplate = template;
+  //   currentSoilMoisture = getEnumHumVal(currentMoisture);
+  //   soilMoistureSettings = settings;
+  // }
+
+  Pot(int currentMoisture) {
+    soilMoistureSettings = SoilMoistureSettings(2, 2);
+    name = 'jj';
     currentSoilMoisture = getEnumHumVal(currentMoisture);
-    soilMoistureSettings = settings;
+    plantTemplate = PlantTemplates.Agurk;
   }
 
   factory Pot.fromJson(dynamic json) {
     return Pot(
-      json['name'],
-      PlantTemplates.values[json['plantTemplate']],
+      // json['name'],
+      // PlantTemplates.values[json['plantTemplate']],
       json['currentSoilMoisture'],
-      SoilMoistureSettings.fromJson(json['soilMoistureSettings']),
+      // SoilMoistureSettings.fromJson(json['soilMoistureSettings']),
     );
   }
 

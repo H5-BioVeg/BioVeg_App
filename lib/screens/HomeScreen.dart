@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bio_veg/classes/Podo/Greenhouse.dart';
 import 'package:bio_veg/classes/GreenhouseManager.dart';
 import 'package:bio_veg/classes/Services/ConvertToColor.dart';
@@ -15,6 +17,15 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState(){
+    super.initState();
+    setState(() {
+      Timer.periodic(Duration(seconds: 20), (Timer t) => setState(() {}));
+    });
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

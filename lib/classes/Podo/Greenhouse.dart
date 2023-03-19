@@ -9,17 +9,24 @@ class Greenhouse {
   late int humidity;
   late String arduinoId;
 
-  Greenhouse(GreenHouseSettings ghSettings) {
-    settings = ghSettings;
+  // Greenhouse(GreenHouseSettings ghSettings) {
+  //   settings = ghSettings;
+  // }
+
+  Greenhouse(){
+    settings = GreenHouseSettings(2, 2, 2, 2);
+    name = 'dd';
+    arduinoId = 'ed';
   }
 
   factory Greenhouse.fromJson(Map<String, dynamic> json) {
     print(json);
-    Greenhouse gh = Greenhouse(GreenHouseSettings.fromJson(json['ghSettings']));
-    gh.name = json['name'];
+    // Greenhouse gh = Greenhouse(GreenHouseSettings.fromJson(json['ghSettings']));
+    Greenhouse gh = Greenhouse();
+    // gh.name = json['name'];
     gh.temperature = json['temperature'];
     gh.humidity = json['humidity'];
-    gh.arduinoId = json['masterId'];
+    // gh.arduinoId = json['masterId'];
     //Create a list for all the pots in the greenhouse
     gh.pots = List.empty(growable: true);
     //Create Map of the pots in the greenhouse
