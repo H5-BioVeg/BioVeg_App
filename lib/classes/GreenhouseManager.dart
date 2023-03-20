@@ -9,10 +9,7 @@ import 'package:bio_veg/classes/Podo/SoilMoistureSettings.dart';
 class GreenhouseManager {
   late List<Greenhouse> greenhouses;
 
-  GreenhouseManager() {
-    
-    
-  }
+  GreenhouseManager();
 
   Future<List<Greenhouse>> scanForGreenhouse() async {
     //Code goes here
@@ -43,36 +40,17 @@ class GreenhouseManager {
       Map<String, dynamic> dbCMap = json.decode(dbContent.toString());
 
       //Make a Map of all the greenhouses
-      Map<String, dynamic> greenMap = dbCMap['greenhouses'];
+      // Map<String, dynamic> greenMap = dbCMap['greenhouses'];
 
+      greenhouses.add(Greenhouse.fromJson(dbCMap));
       //Go through each greenhouse and create an object of it
-      greenMap.forEach((key, value) {
-        greenhouses.add(Greenhouse.fromJson(value));
-      });
+     
     } catch (e) {
       print(e);
     }
     return greenhouses;
   }
 
-  Future<void> getSensorReadings(String ardId) async {
-    try {
-      if (greenhouses.isNotEmpty) {
-        FirebaseDbConnector conn = FirebaseDbConnector();
-        //Get data from database
-        String? dbContent = (await conn.getSensorReadings());
-
-        Map<String, dynamic> greenMap = json.decode(dbContent);
-
-        greenhouses.forEach((element) {
-          if (element.arduinoId == "d") {}
-        });
-          print(greenMap.keys);
-      }
-    } catch (e) {
-      print("erferfefefeffegegegg  ${e}");
-    }
-  }
 
   //Unnecessary?
   bool changeGhName(Greenhouse gh, String newName) {
