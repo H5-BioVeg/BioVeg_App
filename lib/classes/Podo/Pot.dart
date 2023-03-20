@@ -28,8 +28,8 @@ class Pot {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['name'] = name;
     data['currentSoilMoisture'] = currentSoilMoisture;
-    data['plantTemplate'] = plantTemplate as int;
-    data['soilMoistureSettings'] = soilMoistureSettings;
+    data['plantTemplate'] = plantTemplate.index;
+    data['soilMoistureSettings'] = soilMoistureSettings.toJson();
     return data;
   }
 }

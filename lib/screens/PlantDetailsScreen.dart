@@ -10,13 +10,12 @@ import 'package:bio_veg/classes/Podo/Pot.dart';
 class PlantDetailsScreen extends StatefulWidget {
   //this constructor should take an object of a plant or other related type
   //For now it only takes three values for show purposes
-  PlantDetailsScreen({super.key, required this.plant, required this.manager});
+  PlantDetailsScreen({super.key, required this.plant});
   late final TextEditingController _titleEditingController =
       TextEditingController.fromValue(TextEditingValue(text: plant.name));
 
-  late final GreenhouseManager manager;
   late Pot plant;
-  bool settingsChanged = false;
+  bool _settingsChanged = false;
 
   @override
   State<PlantDetailsScreen> createState() => _PlantDetailsScreenState();
@@ -41,12 +40,17 @@ class _PlantDetailsScreenState extends State<PlantDetailsScreen> {
             setState(() {
               //Also do save db
               widget.plant.name = value;
+              widget._settingsChanged = true;
             });
           },
         ),
         leading: IconButton(
             onPressed: () {
-              Navigator.pop(context, widget.plant);
+              if (widget._settingsChanged) {
+                Navigator.pop(context, widget.plant);
+              } else {
+                Navigator.pop(context, null);
+              }
             },
             icon: const Icon(Icons.arrow_back)),
       ),
@@ -96,7 +100,7 @@ class _PlantDetailsScreenState extends State<PlantDetailsScreen> {
                               widget.plant.soilMoistureSettings
                                   .soilMoistureMax = values.end;
 
-                              widget.settingsChanged = true;
+                              widget._settingsChanged = true;
                             }
                           });
                         },
@@ -192,7 +196,8 @@ class _PlantDetailsScreenState extends State<PlantDetailsScreen> {
                           values.start.toInt();
                       widget.plant.soilMoistureSettings.soilMoistureMax =
                           values.end.toInt();
-                      widget.settingsChanged = true;
+
+                      widget._settingsChanged = true;
                     });
                   },
                 ),

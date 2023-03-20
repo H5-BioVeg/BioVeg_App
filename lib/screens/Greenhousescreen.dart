@@ -35,14 +35,17 @@ class _GreenHouseScreenState extends State<GreenHouseScreen> {
                       settings: const RouteSettings(name: "ghSettings"),
                       builder: (context) => GreenHouseSettingsScreen(
                             house: widget.currentHouse,
-                            manager: widget.manager,
                           )));
               if (!mounted) {
                 return;
               }
-              setState(() {
-                widget.currentHouse = result as Greenhouse;
-              });
+              if (result != null) {
+                setState(() {
+                  widget.currentHouse = result as Greenhouse;
+                  widget.manager.updateGreenHouse(widget.currentHouse,
+                      ModalRoute.of(context)!.settings.name.toString());
+                });
+              }
             }),
           ),
         ],
@@ -81,7 +84,7 @@ class _GreenHouseScreenState extends State<GreenHouseScreen> {
                       for (int i = 0; i < widget.currentHouse.pots.length; i++)
                         if (i % 2 == 0) ...[
                           GhPlant(
-                              pot: widget.currentHouse.pots[i],
+                              currentPot: widget.currentHouse.pots[i],
                               manager: widget.manager),
                           const SizedBox(height: 10.0),
                         ],
@@ -93,7 +96,7 @@ class _GreenHouseScreenState extends State<GreenHouseScreen> {
                       for (int i = 0; i < widget.currentHouse.pots.length; i++)
                         if (i % 2 == 1) ...[
                           GhPlant(
-                              pot: widget.currentHouse.pots[i],
+                              currentPot: widget.currentHouse.pots[i],
                               manager: widget.manager),
                           const SizedBox(height: 10.0),
                         ],

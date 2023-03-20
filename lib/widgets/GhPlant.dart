@@ -6,10 +6,10 @@ import 'package:bio_veg/screens/PlantDetailsScreen.dart';
 import 'package:flutter/material.dart';
 
 class GhPlant extends StatefulWidget {
-  GhPlant({super.key, required this.pot, required this.manager});
+  GhPlant({super.key, required this.currentPot, required this.manager});
 
   late final GreenhouseManager manager;
-  late Pot pot;
+  late Pot currentPot;
 
   @override
   State<GhPlant> createState() => _GhPlantState();
@@ -26,18 +26,22 @@ class _GhPlantState extends State<GhPlant> {
         final result = await Navigator.push(
             context,
             MaterialPageRoute(
-              settings: RouteSettings(name: "pots/${widget.pot.name}"),
-              builder: (context) => PlantDetailsScreen(
-                  plant: widget.pot, manager: widget.manager),
+              settings: RouteSettings(name: "pots/${widget.currentPot.name}"),
+              builder: (context) =>
+                  PlantDetailsScreen(plant: widget.currentPot),
             ));
         // When a BuildContext is used from a StatefulWidget, the mounted property
         // must be checked after an asynchronous gap.
         if (!mounted) {
           return;
         }
-        setState(() {
-          widget.pot = result as Pot;
-        });
+        if (result != null) {
+          setState(() {
+            widget.currentPot = result as Pot;
+            widget.manager.updatePot(widget.currentPot,
+                ModalRoute.of(context)!.settings.name.toString());
+          });
+        }
       }),
       child: Ink(
         child: Container(
@@ -45,7 +49,7 @@ class _GhPlantState extends State<GhPlant> {
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
           decoration: BoxDecoration(
               //Color needs to change depending on restrictions in the plant
-              color: ConvertToColor.convertPotToColor(widget.pot),
+              color: ConvertToColor.convertPotToColor(widget.currentPot),
               border: Border.all(color: Colors.black38, width: 1.5),
               borderRadius: BorderRadius.circular(8)),
           //Set min width of columns
@@ -56,7 +60,7 @@ class _GhPlantState extends State<GhPlant> {
                 child: Text(
                     style: const TextStyle(
                         fontSize: 28, fontWeight: FontWeight.bold),
-                    widget.pot.name),
+                    widget.currentPot.name),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -65,7 +69,7 @@ class _GhPlantState extends State<GhPlant> {
                   Text(
                     style: const TextStyle(fontSize: 20),
                     EarthHumidityLevels
-                        .values[widget.pot.currentSoilMoisture].name
+                        .values[widget.currentPot.currentSoilMoisture].name
                         .replaceAll('aa', 'å')
                         .replaceAll('_', ' ')
                         .replaceAll('oe', 'ø'),

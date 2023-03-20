@@ -23,7 +23,8 @@ void main() {
     final GreenhouseManager manager = GreenhouseManager();
     Greenhouse newHouse = Greenhouse(GreenHouseSettings(1, 40, 1, 40));
 
-    manager.changeGhName(newHouse, 'New test name');
+    newHouse.name = 'New test name';
+    manager.updateGreenHouse(newHouse, 'unitTest/testHouse');
     expect(newHouse.name, 'New test name');
   });
 
@@ -33,7 +34,8 @@ void main() {
     GreenHouseSettings newSettings = GreenHouseSettings(2, 80, 2, 80);
     Greenhouse house = Greenhouse(oldSettings);
 
-    manager.changeGhSettings(house, newSettings);
+    house.settings = newSettings;
+    manager.updateGreenHouse(house, 'unitTest/testHouse');
     expect(house.settings, newSettings);
     expect(house.settings, isNot(oldSettings));
   });
@@ -46,7 +48,8 @@ void main() {
     house.pots = List.empty(growable: true);
     house.pots.add(Pot('testPot', PlantTemplates.Ananas, 50, oldSettings));
 
-    manager.changePotSettings(house.pots[0], newSettings);
+    house.pots[0].soilMoistureSettings = newSettings;
+    manager.updatePot(house.pots[0], 'unitTest/testHouse/pots/pot0');
 
     expect(house.pots[0].soilMoistureSettings, newSettings);
     expect(house.pots[0].soilMoistureSettings, isNot(oldSettings));
@@ -59,7 +62,8 @@ void main() {
     house.pots.add(
         Pot('testPot', PlantTemplates.Ananas, 50, SoilMoistureSettings(1, 5)));
 
-    manager.changePotName(house.pots[0], 'new Name');
+    house.pots[0].name = 'new Name';
+    manager.updatePot(house.pots[0], 'unitTest/testHouse/pots/pot0');
 
     expect(house.pots[0].name, 'new Name');
   });

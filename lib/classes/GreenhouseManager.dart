@@ -4,6 +4,7 @@ import 'package:bio_veg/classes/Podo/Greenhouse.dart';
 import 'package:bio_veg/classes/Podo/GreenhouseSetting.dart';
 import 'package:bio_veg/classes/Podo/Pot.dart';
 import 'package:bio_veg/classes/Podo/SoilMoistureSettings.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:workmanager/workmanager.dart';
 
 //MOVE TO MAIN
@@ -87,36 +88,17 @@ class GreenhouseManager {
         print(greenMap.keys);
       }
     } catch (e) {
-      print("erferfefefeffegegegg  ${e}");
+      print("erferfefefeffegegegg  $e");
     }
   }
 
-  //Unnecessary?
-  bool changeGhName(Greenhouse gh, String newName) {
-    //Code goes here
-    return false;
+  void updateGreenHouse(Greenhouse currentHouse, String path) {
+    FirebaseDbConnector dbConn = FirebaseDbConnector();
+    dbConn.updateGreenHouse(currentHouse, path);
   }
 
-  //Unnecessary?
-  bool changePotName(Pot pot, String newName) {
-    //Code goes here
-    return false;
-  }
-
-  //Unnecessary?
-  bool changePotSettings(Pot pot, SoilMoistureSettings settings) {
-    //Code goes here
-    return false;
-  }
-
-  //Unnecessary?
-  bool changeGhSettings(Greenhouse gh, GreenHouseSettings settings) {
-    //Code goes here
-    return false;
-  }
-
-  void deleteGreenhouse(String id) {
-    //Code goes here
-    greenhouses.removeWhere((element) => element.arduinoId == id);
+  void updatePot(Pot currentPot, String path) {
+    FirebaseDbConnector dbConn = FirebaseDbConnector();
+    dbConn.updatePot(currentPot, path);
   }
 }

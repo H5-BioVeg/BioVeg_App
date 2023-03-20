@@ -41,7 +41,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       snapshot.data!.toList(growable: true);
 
                   //Loop through greenhouses and create buttons
-                  for (Greenhouse house in greenhouses) {
+                  for (int i = 0; i < greenhouses.length; i++) {
+                    Greenhouse house = greenhouses[i];
                     return Padding(
                       padding: const EdgeInsets.all(6.0),
                       child: InkWell(
@@ -50,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               context,
                               MaterialPageRoute(
                                   settings: RouteSettings(
-                                      name: "greenhouses/${house.name}"),
+                                      name: "greenhouses/greenhouse${i + 1}/"),
                                   builder: (context) => GreenHouseScreen(
                                         manager: widget.manager,
                                         currentHouse: house,
@@ -88,33 +89,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 return Container();
               },
             ),
-            Expanded(
-                child: Align(
-              alignment: FractionalOffset.bottomCenter,
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(0, 0, 0, 30),
-                child: MaterialButton(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    side: const BorderSide(color: Colors.grey),
-                  ),
-                  child: const Text("Scan for drivhuse"),
-                  onPressed: () async {
-                    //SCAN NETWORK METHOD
-                    /* List<Greenhouse> allGreenHouses = await widget.manager
-                        .scanForGreenhouse(); //.then((value) => null);
-                    List<Greenhouse> uniqueHouses = widget.manager.greenhouses
-                        .where((element) => !allGreenHouses.contains(element))
-                        .toList();
-
-                    setState(() async {
-                      //Use chosen houses instead of unique.
-                      widget.manager.addGreenhouses(uniqueHouses);
-                    }); */
-                  },
-                ),
-              ),
-            ))
           ],
         ),
       ),
