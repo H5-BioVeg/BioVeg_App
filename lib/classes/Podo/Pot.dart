@@ -15,6 +15,7 @@ class Pot {
     soilMoistureSettings = settings;
   }
 
+
   factory Pot.fromJson(dynamic json) {
     return Pot(
       json['name'],

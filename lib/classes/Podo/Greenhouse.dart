@@ -23,10 +23,12 @@ class Greenhouse {
     //Create a list for all the pots in the greenhouse
     gh.pots = List.empty(growable: true);
     //Create Map of the pots in the greenhouse
-    Map<String, dynamic> potsData = json['pots'];
+    // Map<String, dynamic> potsData = json['pots'];
     //Go through each pot and create an object of each one
-    potsData.forEach((key, value) {
-      gh.pots.add(Pot.fromJson(value));
+    json.forEach((key, value) {
+      if (key.startsWith('pot')) {
+        gh.pots.add(Pot.fromJson(value));
+      }
     });
     return gh;
   }
