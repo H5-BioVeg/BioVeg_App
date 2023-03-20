@@ -49,7 +49,7 @@ void main() {
     house.pots.add(Pot('testPot', PlantTemplates.Ananas, 50, oldSettings));
 
     house.pots[0].soilMoistureSettings = newSettings;
-    manager.updatePot(house.pots[0], 'unitTest/testHouse/pots/pot0');
+    manager.updatePot(house.pots[0], 'unitTest/testHouse');
 
     expect(house.pots[0].soilMoistureSettings, newSettings);
     expect(house.pots[0].soilMoistureSettings, isNot(oldSettings));
@@ -63,7 +63,7 @@ void main() {
         Pot('testPot', PlantTemplates.Ananas, 50, SoilMoistureSettings(1, 5)));
 
     house.pots[0].name = 'new Name';
-    manager.updatePot(house.pots[0], 'unitTest/testHouse/pots/pot0');
+    manager.updatePot(house.pots[0], 'unitTest/testHouse');
 
     expect(house.pots[0].name, 'new Name');
   });

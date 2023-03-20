@@ -40,7 +40,11 @@ class Greenhouse {
     data['humidity'] = humidity;
     data['masterId'] = arduinoId;
     data['ghSettings'] = settings.toJson();
-    data['pots'] = pots.map((v) => v.toJson()).toList();
+
+    for (var i = 0; i < pots.length; i++) {
+      data['pot$i'] = pots[i].toJson();
+    }
+    //data['pots'] = pots.map((v) => v.toJson()).toList();
     return data;
   }
 }

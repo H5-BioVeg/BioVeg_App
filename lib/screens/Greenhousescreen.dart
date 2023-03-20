@@ -42,8 +42,7 @@ class _GreenHouseScreenState extends State<GreenHouseScreen> {
               if (result != null) {
                 setState(() {
                   widget.currentHouse = result as Greenhouse;
-                  widget.manager.updateGreenHouse(widget.currentHouse,
-                      ModalRoute.of(context)!.settings.name.toString());
+                  widget.manager.updateGreenHouse(widget.currentHouse, '/');
                 });
               }
             }),
