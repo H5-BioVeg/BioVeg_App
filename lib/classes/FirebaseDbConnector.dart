@@ -20,19 +20,6 @@ class FirebaseDbConnector {
     }
   }
 
-  Future<String> getSensorReadings() async {
-    DatabaseReference ref = database.ref("/");
-
-    final snapshot = await ref.get();
-    if (snapshot.exists) {
-      print(snapshot.value);
-      return jsonEncode(snapshot.value);
-    } else {
-      print('No data');
-      return '';
-    }
-  }
-
   void updateGreenHouse(Greenhouse currentHouse, String path) async {
     try {
       DatabaseReference ref = database.ref(path);
