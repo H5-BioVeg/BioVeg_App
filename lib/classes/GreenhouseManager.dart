@@ -39,11 +39,10 @@ class GreenhouseManager {
       Map<String, dynamic> dbCMap = json.decode(dbContent.toString());
 
       //Make a Map of all the greenhouses
-      // Map<String, dynamic> greenMap = dbCMap['greenhouses'];
-
-      //Create a notification if there is anything out of order in the greenhouse.
-
-      greenhouses.add(Greenhouse.fromJson(dbCMap));
+      Map<String, dynamic> greenMap = dbCMap['greenhouses'];
+      greenMap.forEach((key, value) {
+        greenhouses.add(Greenhouse.fromJson(value));
+      });
       //Go through each greenhouse and create an object of it
     } catch (e) {
       print(e);
