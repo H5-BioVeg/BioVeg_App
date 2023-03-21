@@ -11,11 +11,6 @@ class GreenhouseManager {
 
   GreenhouseManager();
 
-  Future<List<Greenhouse>> scanForGreenhouse() async {
-    //Code goes here
-    return List.empty();
-  }
-
   void addGreenhouses(List<Greenhouse> ghs) {
     //Code goes here
     greenhouses.addAll(ghs);
