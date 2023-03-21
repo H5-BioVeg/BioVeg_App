@@ -1,4 +1,4 @@
-import 'package:bio_veg/classes/ArduinoConnector.dart';
+import 'dart:convert';
 import 'package:bio_veg/classes/FirebaseDbConnector.dart';
 import 'package:bio_veg/classes/Podo/Greenhouse.dart';
 import 'package:bio_veg/classes/Podo/GreenhouseSetting.dart';
@@ -7,11 +7,8 @@ import 'package:bio_veg/classes/Podo/SoilMoistureSettings.dart';
 
 class GreenhouseManager {
   late List<Greenhouse> greenhouses;
-  late ArduinoConnector arduinoConnector;
 
-  GreenhouseManager() {
-    //later
-  }
+  GreenhouseManager();
 
   Future<List<Greenhouse>> scanForGreenhouse() async {
     //Code goes here
@@ -28,45 +25,38 @@ class GreenhouseManager {
   ///Returns a list of greenhouses
   ///
   ///Need to be async if return type is Future
-  Future<List<Greenhouse>> getGreenhousesFromDb(String ownerId) async {
-    //Code goes here
-    FirebaseDbConnector conn = FirebaseDbConnector();
+  Future<List<Greenhouse>> getGreenhousesFromDb() async {
+    //Make a new list to hold the greenhouses
+    greenhouses = List.empty(growable: true);
 
-    String json = await conn.getGreenhousesFromDb(ownerId);
-    print(json);
-    return List.empty();
+    try {
+      FirebaseDbConnector conn = FirebaseDbConnector();
+
+      //Get the info from database
+      String dbContent = (await conn.getGreenhousesFromDb());
+
+      //Map
+      Map<String, dynamic> dbCMap = json.decode(dbContent.toString());
+
+      //Make a Map of all the greenhouses
+      Map<String, dynamic> greenMap = dbCMap['greenhouses'];
+      greenMap.forEach((key, value) {
+        greenhouses.add(Greenhouse.fromJson(value));
+      });
+      //Go through each greenhouse and create an object of it
+    } catch (e) {
+      print(e);
+    }
+    return greenhouses;
   }
 
-  void getSensorReadings(String ardId) {
-    //Code goes here
+  void updateGreenHouse(Greenhouse currentHouse, String path) {
+    FirebaseDbConnector dbConn = FirebaseDbConnector();
+    dbConn.updateGreenHouse(currentHouse, path);
   }
 
-  //Unnecessary?
-  bool changeGhName(Greenhouse gh, String newName) {
-    //Code goes here
-    return false;
-  }
-
-  //Unnecessary?
-  bool changePotName(Pot pot, String newName) {
-    //Code goes here
-    return false;
-  }
-
-  //Unnecessary?
-  bool changePotSettings(Pot pot, SoilMoistureSettings settings) {
-    //Code goes here
-    return false;
-  }
-
-  //Unnecessary?
-  bool changeGhSettings(Greenhouse gh, GreenHouseSettings settings) {
-    //Code goes here
-    return false;
-  }
-
-  void deleteGreenhouse(String id) {
-    //Code goes here
-    greenhouses.removeWhere((element) => element.arduinoId == id);
+  void updatePot(Pot currentPot, String path) {
+    FirebaseDbConnector dbConn = FirebaseDbConnector();
+    dbConn.updatePot(currentPot, path);
   }
 }

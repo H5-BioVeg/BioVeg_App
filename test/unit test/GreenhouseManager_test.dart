@@ -1,5 +1,5 @@
 import 'package:bio_veg/classes/GreenhouseManager.dart';
-import 'package:bio_veg/classes/PlantTemplate.dart';
+import 'package:bio_veg/classes/Enums.dart';
 import 'package:bio_veg/classes/Podo/Greenhouse.dart';
 import 'package:bio_veg/classes/Podo/GreenhouseSetting.dart';
 import 'package:bio_veg/classes/Podo/Pot.dart';
@@ -7,29 +7,24 @@ import 'package:bio_veg/classes/Podo/SoilMoistureSettings.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  test('Add House to Existing houses', () {
-    final GreenhouseManager manager = GreenhouseManager();
-    Greenhouse newHouse = Greenhouse(GreenHouseSettings(1, 40, 1, 40));
-
-    manager.greenhouses = List.empty(growable: true);
-    manager.greenhouses.add(Greenhouse(GreenHouseSettings(0, 0, 0, 0)));
-    manager.addGreenhouses(List.filled(1, newHouse));
-
-    expect(manager.greenhouses, isNot(null));
-    expect(manager.greenhouses.length, isNot(1));
-  });
-
   test('Can fetch data from Firebasedb', () async {
     final GreenhouseManager manager = GreenhouseManager();
-    List<Greenhouse> houses = await manager.getGreenhousesFromDb('');
+    List<Greenhouse> houses = await manager.getGreenhousesFromDb();
     expect(houses, isNot(null));
+  });
+
+  test('Throws error on empty data', () async {
+    final GreenhouseManager manager = GreenhouseManager();
+    expect(manager.getGreenhousesFromDb(),
+        throwsA(const TypeMatcher<Exception>()));
   });
 
   test('Can change greenhouse name', () {
     final GreenhouseManager manager = GreenhouseManager();
     Greenhouse newHouse = Greenhouse(GreenHouseSettings(1, 40, 1, 40));
 
-    manager.changeGhName(newHouse, 'New test name');
+    newHouse.name = 'New test name';
+    manager.updateGreenHouse(newHouse, 'unitTest/testHouse');
     expect(newHouse.name, 'New test name');
   });
 
@@ -39,7 +34,8 @@ void main() {
     GreenHouseSettings newSettings = GreenHouseSettings(2, 80, 2, 80);
     Greenhouse house = Greenhouse(oldSettings);
 
-    manager.changeGhSettings(house, newSettings);
+    house.settings = newSettings;
+    manager.updateGreenHouse(house, 'unitTest/testHouse');
     expect(house.settings, newSettings);
     expect(house.settings, isNot(oldSettings));
   });
@@ -52,7 +48,8 @@ void main() {
     house.pots = List.empty(growable: true);
     house.pots.add(Pot('testPot', PlantTemplates.Ananas, 50, oldSettings));
 
-    manager.changePotSettings(house.pots[0], newSettings);
+    house.pots[0].soilMoistureSettings = newSettings;
+    manager.updatePot(house.pots[0], 'unitTest/testHouse');
 
     expect(house.pots[0].soilMoistureSettings, newSettings);
     expect(house.pots[0].soilMoistureSettings, isNot(oldSettings));
@@ -65,7 +62,8 @@ void main() {
     house.pots.add(
         Pot('testPot', PlantTemplates.Ananas, 50, SoilMoistureSettings(1, 5)));
 
-    manager.changePotName(house.pots[0], 'new Name');
+    house.pots[0].name = 'new Name';
+    manager.updatePot(house.pots[0], 'unitTest/testHouse');
 
     expect(house.pots[0].name, 'new Name');
   });

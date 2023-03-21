@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:bio_veg/classes/Podo/Greenhouse.dart';
 import 'package:bio_veg/classes/GreenhouseManager.dart';
+import 'package:bio_veg/classes/Services/ConvertToColor.dart';
 import 'package:bio_veg/screens/GreenHouseScreen.dart';
 import 'package:flutter/material.dart';
 
@@ -14,6 +17,15 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState(){
+    super.initState();
+    setState(() {
+      Timer.periodic(Duration(minutes: 15), (Timer t) => setState(() {}));
+    });
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,14 +45,15 @@ class _HomeScreenState extends State<HomeScreen> {
             //Builder for greenhouses
             FutureBuilder<List<Greenhouse>>(
               //Get db from database if any
-              future: widget.manager.getGreenhousesFromDb('ownerId'),
+              future: widget.manager.getGreenhousesFromDb(),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   List<Greenhouse> greenhouses =
                       snapshot.data!.toList(growable: true);
 
                   //Loop through greenhouses and create buttons
-                  for (Greenhouse house in greenhouses) {
+                  for (int i = 0; i < greenhouses.length; i++) {
+                    Greenhouse house = greenhouses[i];
                     return Padding(
                       padding: const EdgeInsets.all(6.0),
                       child: InkWell(
@@ -49,8 +62,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               context,
                               MaterialPageRoute(
                                   settings: RouteSettings(
-                                      name: "greenhouses/${house.name}"),
+                                      name: "greenhouses/greenhouse${i + 1}/"),
                                   builder: (context) => GreenHouseScreen(
+                                        manager: widget.manager,
                                         currentHouse: house,
                                       )));
                         },
@@ -58,7 +72,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           height: MediaQuery.of(context).size.height * 0.05,
                           width: MediaQuery.of(context).size.width * 0.65,
                           decoration: BoxDecoration(
-                            color: Colors.blue,
+                            color:
+                                ConvertToColor.convertGreenhouseToColor(house),
                             border: Border.all(width: 1.5),
                             borderRadius: BorderRadius.circular(12),
                           ),
@@ -85,33 +100,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 return Container();
               },
             ),
-            Expanded(
-                child: Align(
-              alignment: FractionalOffset.bottomCenter,
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(0, 0, 0, 30),
-                child: MaterialButton(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    side: const BorderSide(color: Colors.grey),
-                  ),
-                  child: const Text("Scan for drivhuse"),
-                  onPressed: () async {
-                    //SCAN NETWORK METHOD
-                    /* List<Greenhouse> allGreenHouses = await widget.manager
-                        .scanForGreenhouse(); //.then((value) => null);
-                    List<Greenhouse> uniqueHouses = widget.manager.greenhouses
-                        .where((element) => !allGreenHouses.contains(element))
-                        .toList();
-
-                    setState(() async {
-                      //Use chosen houses instead of unique.
-                      widget.manager.addGreenhouses(uniqueHouses);
-                    }); */
-                  },
-                ),
-              ),
-            ))
           ],
         ),
       ),

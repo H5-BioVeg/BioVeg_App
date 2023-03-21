@@ -1,4 +1,4 @@
-import 'package:bio_veg/classes/PlantTemplate.dart';
+import 'package:bio_veg/classes/Enums.dart';
 import 'package:bio_veg/classes/Podo/SoilMoistureSettings.dart';
 
 class Pot {
@@ -7,19 +7,20 @@ class Pot {
   late PlantTemplates plantTemplate;
   late int currentSoilMoisture;
 
-  Pot(String name, PlantTemplates template, int currentMoisture,
+  Pot(String name2, PlantTemplates template, int currentMoisture,
       SoilMoistureSettings settings) {
-    name = name;
+    name = name2;
     plantTemplate = template;
-    currentSoilMoisture = currentMoisture;
+    currentSoilMoisture = getEnumHumVal(currentMoisture);
     soilMoistureSettings = settings;
   }
+
 
   factory Pot.fromJson(dynamic json) {
     return Pot(
       json['name'],
       PlantTemplates.values[json['plantTemplate']],
-      json['currentMoisture'],
+      json['currentSoilMoisture'],
       SoilMoistureSettings.fromJson(json['soilMoistureSettings']),
     );
   }
@@ -28,8 +29,8 @@ class Pot {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['name'] = name;
     data['currentSoilMoisture'] = currentSoilMoisture;
-    data['plantTemplate'] = plantTemplate as int;
-    data['soilMoistureSettings'] = soilMoistureSettings;
+    data['plantTemplate'] = plantTemplate.index;
+    data['soilMoistureSettings'] = soilMoistureSettings.toJson();
     return data;
   }
 }
