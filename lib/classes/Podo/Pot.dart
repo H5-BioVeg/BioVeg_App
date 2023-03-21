@@ -7,9 +7,9 @@ class Pot {
   late PlantTemplates plantTemplate;
   late int currentSoilMoisture;
 
-  Pot(String name2, PlantTemplates template, int currentMoisture,
+  Pot(String potName, PlantTemplates template, int currentMoisture,
       SoilMoistureSettings settings) {
-    name = name2;
+    name = potName;
     plantTemplate = template;
     currentSoilMoisture = getEnumHumVal(currentMoisture);
     soilMoistureSettings = settings;
