@@ -2,19 +2,12 @@ import 'dart:convert';
 import 'package:bio_veg/NotificationService.Dart';
 import 'package:bio_veg/classes/FirebaseDbConnector.dart';
 import 'package:bio_veg/classes/Podo/Greenhouse.dart';
-import 'package:bio_veg/classes/Podo/GreenhouseSetting.dart';
 import 'package:bio_veg/classes/Podo/Pot.dart';
-import 'package:bio_veg/classes/Podo/SoilMoistureSettings.dart';
 
 class GreenhouseManager {
   late List<Greenhouse> greenhouses;
 
   GreenhouseManager();
-
-  void addGreenhouses(List<Greenhouse> ghs) {
-    //Code goes here
-    greenhouses.addAll(ghs);
-  }
 
   ///Gets Greenhouses from the firebase DB
   ///

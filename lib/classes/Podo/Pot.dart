@@ -1,6 +1,8 @@
 import 'package:bio_veg/classes/Enums.dart';
 import 'package:bio_veg/classes/Podo/SoilMoistureSettings.dart';
 
+import '../Services/ConvertIntToHumidityLevel.dart';
+
 class Pot {
   late String name;
   late SoilMoistureSettings soilMoistureSettings;
@@ -11,7 +13,7 @@ class Pot {
       SoilMoistureSettings settings) {
     name = potName;
     plantTemplate = template;
-    currentSoilMoisture = getEnumHumVal(currentMoisture);
+    currentSoilMoisture = ConvertIntToHumidityLevel.getEnumHumVal(currentMoisture);
     soilMoistureSettings = settings;
   }
 
