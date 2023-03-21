@@ -2,14 +2,12 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter/foundation.dart';
 
 
-
-
 class LocalNoticeService {
   // Singleton of the LocalNoticeService
   static final LocalNoticeService _notificationService =LocalNoticeService._internal();
 
   final _localNotificationsPlugin = FlutterLocalNotificationsPlugin();
-
+  static int idCount = 0;
 
   factory LocalNoticeService() {
     return _notificationService;
@@ -22,10 +20,6 @@ class LocalNoticeService {
     String sound = '',
     String channel = 'default',
   }) async {
-   // tzData.initializeTimeZones();
-
-    //final scheduleTime =
-      //  tz.TZDateTime.fromMillisecondsSinceEpoch(tz.local, endTime);
 
     // #3
     final iosDetail = sound == ''
@@ -48,10 +42,10 @@ class LocalNoticeService {
     );
 
     // #4
-    const id = 0;
-
+    //const id = channel;
+    idCount++;
     await _localNotificationsPlugin.show(
-      id,
+      idCount,
       title,
       body,
       

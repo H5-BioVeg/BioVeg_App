@@ -67,7 +67,8 @@ class GreenhouseManager {
         house.humidity > house.settings.humidityMax ||
         house.humidity < house.settings.humidityMin) {
       LocalNoticeService().addNotification('Problemer med ${house.name}!',
-          'En af ${house.name}s værdier er uden for grænsen!');
+          'En af ${house.name}s værdier er uden for grænsen!',
+          channel: 'Channel 1');
     }
 
     int problemCounter = 0;
@@ -80,8 +81,9 @@ class GreenhouseManager {
       }
     }
     if (problemCounter > 0) {
-      LocalNoticeService().addNotification('Planter i knibe: $problemCounter',
-          'Der er $problemCounter problemer i dit drivhus: ${house.name}');
+      LocalNoticeService().addNotification('Planter i knibe!',
+          'Der er $problemCounter problemer i dit drivhus: ${house.name}',
+          channel: 'Channel 2');
     }
   }
 }
