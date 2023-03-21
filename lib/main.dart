@@ -12,14 +12,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  LocalNoticeService().addNotification(
-    'Notification Title',
-    'Notification Body',
-    channel: 'testing',
-  );
 
-  // final fcmToken = await FirebaseMessaging.instance.getToken();
-  // print(fcmToken);
   runApp(const FrontPage());
 }
 

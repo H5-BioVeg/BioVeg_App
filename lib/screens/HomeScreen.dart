@@ -18,13 +18,12 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   @override
-  void initState(){
+  void initState() {
     super.initState();
     setState(() {
       Timer.periodic(Duration(minutes: 15), (Timer t) => setState(() {}));
     });
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -54,6 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   //Loop through greenhouses and create buttons
                   for (int i = 0; i < greenhouses.length; i++) {
                     Greenhouse house = greenhouses[i];
+                    widget.manager.checkOutOfRange(house);
                     return Padding(
                       padding: const EdgeInsets.all(6.0),
                       child: InkWell(

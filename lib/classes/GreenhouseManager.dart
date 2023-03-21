@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:bio_veg/NotificationService.Dart';
 import 'package:bio_veg/classes/FirebaseDbConnector.dart';
 import 'package:bio_veg/classes/Podo/Greenhouse.dart';
 import 'package:bio_veg/classes/Podo/GreenhouseSetting.dart';
@@ -58,5 +59,29 @@ class GreenhouseManager {
   void updatePot(Pot currentPot, String path) {
     FirebaseDbConnector dbConn = FirebaseDbConnector();
     dbConn.updatePot(currentPot, path);
+  }
+
+  void checkOutOfRange(Greenhouse house) {
+    if (house.temperature > house.settings.temperatureMax ||
+        house.temperature < house.settings.temperatureMin ||
+        house.humidity > house.settings.humidityMax ||
+        house.humidity < house.settings.humidityMin) {
+      LocalNoticeService().addNotification('Problemer med ${house.name}!',
+          'En af ${house.name}s værdier er uden for grænsen!');
+    }
+
+    int problemCounter = 0;
+    for (var i = 0; i < house.pots.length; i++) {
+      if (house.pots[i].currentSoilMoisture >
+              house.pots[i].soilMoistureSettings.soilMoistureMax ||
+          house.pots[i].currentSoilMoisture <
+              house.pots[i].soilMoistureSettings.soilMoistureMin) {
+        problemCounter++;
+      }
+    }
+    if (problemCounter > 0) {
+      LocalNoticeService().addNotification('Planter i knibe: $problemCounter',
+          'Der er $problemCounter problemer i dit drivhus: ${house.name}');
+    }
   }
 }
