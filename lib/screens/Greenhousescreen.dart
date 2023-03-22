@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bio_veg/classes/GreenhouseManager.dart';
 import 'package:bio_veg/classes/Podo/Greenhouse.dart';
 import 'package:bio_veg/screens/GreenHouseSettingsScreen.dart';
@@ -17,6 +19,14 @@ class GreenHouseScreen extends StatefulWidget {
 
 class _GreenHouseScreenState extends State<GreenHouseScreen> {
   @override
+  void initState() {
+    super.initState();
+    setState(() {
+      Timer.periodic(const Duration(seconds: 30), (Timer t) => setState(() {}));
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -24,10 +34,9 @@ class _GreenHouseScreenState extends State<GreenHouseScreen> {
         title: Text(
             style: const TextStyle(fontSize: 30), widget.currentHouse.name),
         actions: [
+          //Go to settings button
           IconButton(
             icon: const Icon(Icons.settings_rounded),
-            //Go to settings
-            //Prob have a setstate afterwards to save the new changes in the app, whilst also saving it to db.
             onPressed: (() async {
               final result = await Navigator.push(
                   context,
@@ -39,11 +48,12 @@ class _GreenHouseScreenState extends State<GreenHouseScreen> {
               if (!mounted) {
                 return;
               }
+              //Has a setstate to save the new changes in the app afte returning from settings, whilst also saving it to db.
               if (result != null) {
                 setState(() {
                   widget.currentHouse = result as Greenhouse;
-                  widget.manager.updateGreenHouse(widget.currentHouse, 
-                  ModalRoute.of(context)!.settings.name.toString());
+                  widget.manager.updateGreenHouse(widget.currentHouse,
+                      ModalRoute.of(context)!.settings.name.toString());
                 });
               }
             }),
@@ -58,6 +68,7 @@ class _GreenHouseScreenState extends State<GreenHouseScreen> {
               //Header row with degrees and humidity
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 5, 0, 15),
+                //Row showing temperature and humidity in the greenhouse
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -78,14 +89,18 @@ class _GreenHouseScreenState extends State<GreenHouseScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   //creates a collective list using the spread operator (...)
+                  //We have 2 columns of plants and we take every other plant so we don't get duplicates using the % operator
+                  //They are then gathered in a list using the spread operator with a sizedbox in between every plant
                   Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       for (int i = 0; i < widget.currentHouse.pots.length; i++)
                         if (i % 2 == 0) ...[
                           GhPlant(
-                              currentPot: widget.currentHouse.pots[i],
-                              manager: widget.manager),
+                            currentPot: widget.currentHouse.pots[i],
+                            manager: widget.manager,
+                            potId: i,
+                          ),
                           const SizedBox(height: 10.0),
                         ],
                     ],
@@ -96,8 +111,10 @@ class _GreenHouseScreenState extends State<GreenHouseScreen> {
                       for (int i = 0; i < widget.currentHouse.pots.length; i++)
                         if (i % 2 == 1) ...[
                           GhPlant(
-                              currentPot: widget.currentHouse.pots[i],
-                              manager: widget.manager),
+                            currentPot: widget.currentHouse.pots[i],
+                            manager: widget.manager,
+                            potId: i,
+                          ),
                           const SizedBox(height: 10.0),
                         ],
                     ],

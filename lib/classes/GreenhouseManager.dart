@@ -39,16 +39,26 @@ class GreenhouseManager {
     return greenhouses;
   }
 
+  ///Update greenhouse that the specified path
+  ///
+  ///will not override anything other than at the specified path
   void updateGreenHouse(Greenhouse currentHouse, String path) {
     FirebaseDbConnector dbConn = FirebaseDbConnector();
     dbConn.updateGreenHouse(currentHouse, path);
   }
+
+  ///Update the values of pot at the specified path
+  ///
+  ///Will not override anything other than at the specified path
 
   void updatePot(Pot currentPot, String path) {
     FirebaseDbConnector dbConn = FirebaseDbConnector();
     dbConn.updatePot(currentPot, path);
   }
 
+  ///Checks if any values are out of range
+  ///
+  ///Fires a notification if any problems were found
   void checkOutOfRange(Greenhouse house) {
     if (house.temperature > house.settings.temperatureMax ||
         house.temperature < house.settings.temperatureMin ||
@@ -59,6 +69,7 @@ class GreenhouseManager {
           channel: 'Channel 1');
     }
 
+    //Increment counter if any pots have exceeding values
     int problemCounter = 0;
     for (var i = 0; i < house.pots.length; i++) {
       if (house.pots[i].currentSoilMoisture >

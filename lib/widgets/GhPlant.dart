@@ -7,10 +7,15 @@ import 'package:bio_veg/screens/PlantDetailsScreen.dart';
 import 'package:flutter/material.dart';
 
 class GhPlant extends StatefulWidget {
-  GhPlant({super.key, required this.currentPot, required this.manager});
+  GhPlant(
+      {super.key,
+      required this.currentPot,
+      required this.manager,
+      required this.potId});
 
   late final GreenhouseManager manager;
   late Pot currentPot;
+  late int potId;
 
   @override
   State<GhPlant> createState() => _GhPlantState();
@@ -27,7 +32,7 @@ class _GhPlantState extends State<GhPlant> {
         final result = await Navigator.push(
             context,
             MaterialPageRoute(
-              settings: RouteSettings(name: "pots/${widget.currentPot.name}"),
+              settings: RouteSettings(name: "pots/pot${widget.potId}"),
               builder: (context) =>
                   PlantDetailsScreen(plant: widget.currentPot),
             ));
