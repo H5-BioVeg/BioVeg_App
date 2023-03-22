@@ -1,8 +1,6 @@
 import 'package:bio_veg/classes/Podo/Greenhouse.dart';
-import 'package:bio_veg/dialogs/DeletePopUpDialog.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
-import '../classes/GreenhouseManager.dart';
 
 class GreenHouseSettingsScreen extends StatefulWidget {
   GreenHouseSettingsScreen({super.key, required this.house});
@@ -25,6 +23,8 @@ class _GreenHouseSettingsScreenState extends State<GreenHouseSettingsScreen> {
           backgroundColor: Colors.greenAccent,
           leading: IconButton(
               onPressed: () {
+                //If any changes have been made,
+                //pop the current house to update it on returning to home screen
                 if (widget._settingsChanged) {
                   Navigator.pop(context, widget.house);
                 } else {
@@ -32,7 +32,7 @@ class _GreenHouseSettingsScreenState extends State<GreenHouseSettingsScreen> {
                 }
               },
               icon: const Icon(Icons.arrow_back)),
-          //We can make this into a widget or something, since it will be used multiple places
+          //Editable title textfield
           title: TextField(
             textAlign: TextAlign.center,
             decoration: const InputDecoration(
@@ -42,6 +42,8 @@ class _GreenHouseSettingsScreenState extends State<GreenHouseSettingsScreen> {
             style: const TextStyle(fontSize: 30),
             onChanged: (value) {
               setState(() {
+                //Do not set texteditingcontroller.val in the setstate,
+                //as it messes with the input when you type
                 widget.house.name = value;
                 widget._settingsChanged = true;
               });
@@ -72,6 +74,7 @@ class _GreenHouseSettingsScreenState extends State<GreenHouseSettingsScreen> {
                     stepSize: 1,
                     showLabels: true,
                     enableTooltip: true,
+                    //Format labels so it'll only show the end values 0 and 40
                     labelFormatterCallback: (actualValue, formattedText) {
                       if (actualValue == 0) {
                         return '0°C';
@@ -81,6 +84,7 @@ class _GreenHouseSettingsScreenState extends State<GreenHouseSettingsScreen> {
                       return '';
                     },
                     tooltipTextFormatterCallback: (actualValue, formattedText) {
+                      //add °C to the end of the tooltip popup text
                       return '$formattedText°C';
                     },
                     onChanged: (values) {
@@ -113,6 +117,7 @@ class _GreenHouseSettingsScreenState extends State<GreenHouseSettingsScreen> {
                     stepSize: 1,
                     showLabels: true,
                     enableTooltip: true,
+                    //Format labels so it'll only show the end values 0 and 100
                     labelFormatterCallback: (actualValue, formattedText) {
                       if (actualValue == 0) {
                         return '0%';
@@ -122,6 +127,7 @@ class _GreenHouseSettingsScreenState extends State<GreenHouseSettingsScreen> {
                       return '';
                     },
                     tooltipTextFormatterCallback: (actualValue, formattedText) {
+                      //add % to the end of the tooltip popup text
                       return '$formattedText%';
                     },
                     onChanged: (values) {
@@ -134,34 +140,6 @@ class _GreenHouseSettingsScreenState extends State<GreenHouseSettingsScreen> {
                     },
                   ),
                 ),
-                /* Expanded(
-                    child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 30),
-                    child: MaterialButton(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        side: const BorderSide(color: Colors.grey),
-                      ),
-                      child: const Text("Slet Drivhus"),
-                      onPressed: () {
-                        //Show delete pop up modal
-                        showDialog(
-                                context: context,
-                                builder: (context) => const DeletePopUpDialog())
-                            .then((value) {
-                          if (value) {
-                            //If value = true, delete the greenhouse
-                            //Delete greenhouse
-                            Navigator.of(context)
-                                .popUntil(ModalRoute.withName('/'));
-                          }
-                        });
-                      },
-                    ),
-                  ),
-                )) */
               ],
             ),
           ],

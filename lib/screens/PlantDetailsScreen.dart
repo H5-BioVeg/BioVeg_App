@@ -1,4 +1,3 @@
-import 'package:bio_veg/classes/GreenhouseManager.dart';
 import 'package:bio_veg/classes/Services/ConvertPlantTemplate.dart';
 import 'package:bio_veg/classes/Services/ConvertToColor.dart';
 import 'package:bio_veg/dialogs/ShowInfoPopUpDialog.dart';
@@ -11,11 +10,11 @@ class PlantDetailsScreen extends StatefulWidget {
   //this constructor should take an object of a plant or other related type
   //For now it only takes three values for show purposes
   PlantDetailsScreen({super.key, required this.plant});
-  late final TextEditingController _titleEditingController =
-      TextEditingController.fromValue(TextEditingValue(text: plant.name));
 
   late Pot plant;
   bool _settingsChanged = false;
+  late final TextEditingController _titleEditingController =
+      TextEditingController.fromValue(TextEditingValue(text: plant.name));
 
   @override
   State<PlantDetailsScreen> createState() => _PlantDetailsScreenState();
@@ -38,21 +37,23 @@ class _PlantDetailsScreenState extends State<PlantDetailsScreen> {
           style: const TextStyle(fontSize: 30),
           onChanged: (value) {
             setState(() {
-              //Also do save db
               widget.plant.name = value;
               widget._settingsChanged = true;
             });
           },
         ),
         leading: IconButton(
-            onPressed: () {
-              if (widget._settingsChanged) {
-                Navigator.pop(context, widget.plant);
-              } else {
-                Navigator.pop(context, null);
-              }
-            },
-            icon: const Icon(Icons.arrow_back)),
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            //If any changes have been made,
+            //pop the current house to update it on returning to home screen
+            if (widget._settingsChanged) {
+              Navigator.pop(context, widget.plant);
+            } else {
+              Navigator.pop(context, null);
+            }
+          },
+        ),
       ),
       body: Column(
         children: [
@@ -188,7 +189,7 @@ class _PlantDetailsScreenState extends State<PlantDetailsScreen> {
                             .replaceAll('oe', 'ø')
                         : "";
                   },
-                  //On pop, save changes to DB
+                  //On slider values changed, set settingschanged to true so we save them on returning to the previous site
                   onChanged: (values) {
                     setState(() {
                       widget.plant.plantTemplate = PlantTemplates.Custom;

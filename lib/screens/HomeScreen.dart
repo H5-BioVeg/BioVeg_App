@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:bio_veg/classes/Podo/Greenhouse.dart';
 import 'package:bio_veg/classes/GreenhouseManager.dart';
 import 'package:bio_veg/classes/Services/ConvertToColor.dart';
@@ -21,7 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     setState(() {
-      Timer.periodic(Duration(minutes: 15), (Timer t) => setState(() {}));
+      Timer.periodic(const Duration(seconds: 10), (Timer t) => setState(() {}));
     });
   }
 
@@ -62,6 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               context,
                               MaterialPageRoute(
                                   settings: RouteSettings(
+                                      //We use route names for finding the path to save elements in the firebase realtime database
                                       name: "greenhouses/greenhouse${i + 1}/"),
                                   builder: (context) => GreenHouseScreen(
                                         manager: widget.manager,
@@ -73,6 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           width: MediaQuery.of(context).size.width * 0.65,
                           decoration: BoxDecoration(
                             color:
+                                //Get a color from the helper method depending on the gh values
                                 ConvertToColor.convertGreenhouseToColor(house),
                             border: Border.all(width: 1.5),
                             borderRadius: BorderRadius.circular(12),

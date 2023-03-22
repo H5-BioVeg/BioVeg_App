@@ -7,7 +7,6 @@ class FirebaseDbConnector {
   final FirebaseDatabase database = FirebaseDatabase.instance;
 
   Future<String> getGreenhousesFromDb() async {
-    //Code goes here
     DatabaseReference ref = database.ref();
     //Get entire db
     final snapshot = await ref.get();
