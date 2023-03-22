@@ -8,9 +8,11 @@ class Pot {
   late SoilMoistureSettings soilMoistureSettings;
   late PlantTemplates plantTemplate;
   late int currentSoilMoisture;
+  late String id;
 
-  Pot(String potName, PlantTemplates template, int currentMoisture,
+  Pot(String potId, String potName, PlantTemplates template, int currentMoisture,
       SoilMoistureSettings settings) {
+    id = potId;
     name = potName;
     plantTemplate = template;
     currentSoilMoisture = ConvertIntToHumidityLevel.getEnumHumVal(currentMoisture);
@@ -18,8 +20,9 @@ class Pot {
   }
 
 
-  factory Pot.fromJson(dynamic json) {
+  factory Pot.fromJson(String potId, dynamic json) {
     return Pot(
+      potId,
       json['name'],
       PlantTemplates.values[json['plantTemplate']],
       json['currentSoilMoisture'],

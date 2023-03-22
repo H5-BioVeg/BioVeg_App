@@ -26,7 +26,7 @@ class Greenhouse {
     Map<String, dynamic> potsData = json['pots'];
     //Go through each pot and create an object of each one
     potsData.forEach((key, value) {
-      gh.pots.add(Pot.fromJson(value));
+      gh.pots.add(Pot.fromJson(key, value));
     });
     return gh;
   }
@@ -39,10 +39,12 @@ class Greenhouse {
     data['masterId'] = arduinoId;
     data['ghSettings'] = settings.toJson();
 
+    Map<String, dynamic> potList = <String, dynamic>{};
     for (var i = 0; i < pots.length; i++) {
-      data['pot$i'] = pots[i].toJson();
+      potList['pot${i + 1}'] = pots[i].toJson();
     }
-    //data['pots'] = pots.map((v) => v.toJson()).toList();
+    data['pots'] = potList;
+
     return data;
   }
 }

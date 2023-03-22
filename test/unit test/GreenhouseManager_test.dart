@@ -46,7 +46,8 @@ void main() {
     SoilMoistureSettings oldSettings = SoilMoistureSettings(1, 5);
     SoilMoistureSettings newSettings = SoilMoistureSettings(2, 10);
     house.pots = List.empty(growable: true);
-    house.pots.add(Pot('testPot', PlantTemplates.Ananas, 50, oldSettings));
+    house.pots
+        .add(Pot('testId', 'testPot', PlantTemplates.Ananas, 50, oldSettings));
 
     house.pots[0].soilMoistureSettings = newSettings;
     manager.updatePot(house.pots[0], 'unitTest/testHouse');
@@ -59,8 +60,8 @@ void main() {
     final GreenhouseManager manager = GreenhouseManager();
     Greenhouse house = Greenhouse(GreenHouseSettings(1, 40, 1, 40));
     house.pots = List.empty(growable: true);
-    house.pots.add(
-        Pot('testPot', PlantTemplates.Ananas, 50, SoilMoistureSettings(1, 5)));
+    house.pots.add(Pot('testId', 'testPot', PlantTemplates.Ananas, 50,
+        SoilMoistureSettings(1, 5)));
 
     house.pots[0].name = 'new Name';
     manager.updatePot(house.pots[0], 'unitTest/testHouse');

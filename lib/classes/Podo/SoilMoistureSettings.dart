@@ -1,12 +1,11 @@
-import 'package:bio_veg/classes/Services/ConvertIntToHumidityLevel.dart';
 
 class SoilMoistureSettings {
   late int soilMoistureMin;
   late int soilMoistureMax;
 
   SoilMoistureSettings(int soilMin, int soilMax) {
-    soilMoistureMin = ConvertIntToHumidityLevel.getEnumHumVal(soilMin);
-    soilMoistureMax = ConvertIntToHumidityLevel.getEnumHumVal(soilMax);
+    soilMoistureMin = soilMin;
+    soilMoistureMax = soilMax;
   }
 
   factory SoilMoistureSettings.fromJson(dynamic json) {
