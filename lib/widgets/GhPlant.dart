@@ -38,7 +38,8 @@ class _GhPlantState extends State<GhPlant> {
         if (result != null) {
           setState(() {
             widget.currentPot = result as Pot;
-            widget.manager.updatePot(widget.currentPot, '/');
+            widget.manager.updatePot(widget.currentPot, 
+            ModalRoute.of(context)!.settings.name.toString() + 'pots/' + widget.currentPot.id);
           });
         }
       }),
