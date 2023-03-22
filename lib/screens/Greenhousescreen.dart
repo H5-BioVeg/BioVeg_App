@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bio_veg/classes/GreenhouseManager.dart';
 import 'package:bio_veg/classes/Podo/Greenhouse.dart';
 import 'package:bio_veg/screens/GreenHouseSettingsScreen.dart';
@@ -16,6 +18,14 @@ class GreenHouseScreen extends StatefulWidget {
 }
 
 class _GreenHouseScreenState extends State<GreenHouseScreen> {
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      Timer.periodic(const Duration(seconds: 30), (Timer t) => setState(() {}));
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,8 +52,8 @@ class _GreenHouseScreenState extends State<GreenHouseScreen> {
               if (result != null) {
                 setState(() {
                   widget.currentHouse = result as Greenhouse;
-                  widget.manager.updateGreenHouse(widget.currentHouse, 
-                  ModalRoute.of(context)!.settings.name.toString());
+                  widget.manager.updateGreenHouse(widget.currentHouse,
+                      ModalRoute.of(context)!.settings.name.toString());
                 });
               }
             }),

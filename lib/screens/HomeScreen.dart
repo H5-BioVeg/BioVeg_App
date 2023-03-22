@@ -20,7 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     setState(() {
-      Timer.periodic(const Duration(seconds: 10), (Timer t) => setState(() {}));
+      Timer.periodic(const Duration(seconds: 30), (Timer t) => setState(() {}));
     });
   }
 
