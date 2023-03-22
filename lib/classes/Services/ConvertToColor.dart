@@ -1,5 +1,6 @@
 import 'package:bio_veg/classes/Podo/Greenhouse.dart';
 import 'package:bio_veg/classes/Podo/Pot.dart';
+import 'package:bio_veg/classes/Services/ConvertIntToHumidityLevel.dart';
 import 'package:flutter/material.dart';
 
 class ConvertToColor {
@@ -15,12 +16,12 @@ class ConvertToColor {
   }
 
   static Color convertPotToColor(Pot pot) {
-    if (pot.currentSoilMoisture > pot.soilMoistureSettings.soilMoistureMin &&
-        pot.currentSoilMoisture < pot.soilMoistureSettings.soilMoistureMax) {
+    if (ConvertIntToHumidityLevel.getEnumHumVal(pot.currentSoilMoisture) > pot.soilMoistureSettings.soilMoistureMin &&
+        ConvertIntToHumidityLevel.getEnumHumVal(pot.currentSoilMoisture) < pot.soilMoistureSettings.soilMoistureMax) {
       return Colors.greenAccent;
-    } else if (pot.currentSoilMoisture >
+    } else if (ConvertIntToHumidityLevel.getEnumHumVal(pot.currentSoilMoisture) >
             pot.soilMoistureSettings.soilMoistureMax ||
-        pot.currentSoilMoisture < pot.soilMoistureSettings.soilMoistureMin) {
+        ConvertIntToHumidityLevel.getEnumHumVal(pot.currentSoilMoisture) < pot.soilMoistureSettings.soilMoistureMin) {
       return Color.fromARGB(255, 254, 129, 129);
     }
     return Colors.yellowAccent;

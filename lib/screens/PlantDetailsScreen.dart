@@ -1,4 +1,3 @@
-import 'package:bio_veg/classes/GreenhouseManager.dart';
 import 'package:bio_veg/classes/Services/ConvertPlantTemplate.dart';
 import 'package:bio_veg/classes/Services/ConvertToColor.dart';
 import 'package:bio_veg/dialogs/ShowInfoPopUpDialog.dart';
@@ -6,6 +5,8 @@ import 'package:syncfusion_flutter_sliders/sliders.dart';
 import 'package:flutter/material.dart';
 import 'package:bio_veg/classes/Enums.dart';
 import 'package:bio_veg/classes/Podo/Pot.dart';
+
+import '../classes/Services/ConvertIntToHumidityLevel.dart';
 
 class PlantDetailsScreen extends StatefulWidget {
   //this constructor should take an object of a plant or other related type
@@ -136,7 +137,7 @@ class _PlantDetailsScreenState extends State<PlantDetailsScreen> {
                     color: Colors.blueAccent, size: 36),
                 Text(
                   EarthHumidityLevels
-                      .values[widget.plant.currentSoilMoisture].name
+                      .values[ConvertIntToHumidityLevel.getEnumHumVal(widget.plant.currentSoilMoisture)].name
                       .replaceAll('aa', 'å')
                       .replaceAll('_', ' ')
                       .replaceAll('oe', 'ø'),

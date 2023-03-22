@@ -1,5 +1,6 @@
 import 'package:bio_veg/classes/Enums.dart';
 import 'package:bio_veg/classes/GreenhouseManager.dart';
+import 'package:bio_veg/classes/Services/ConvertIntToHumidityLevel.dart';
 import 'package:bio_veg/classes/Services/ConvertToColor.dart';
 import 'package:bio_veg/classes/Podo/Pot.dart';
 import 'package:bio_veg/screens/PlantDetailsScreen.dart';
@@ -69,7 +70,7 @@ class _GhPlantState extends State<GhPlant> {
                   Text(
                     style: const TextStyle(fontSize: 20),
                     EarthHumidityLevels
-                        .values[widget.currentPot.currentSoilMoisture].name
+                        .values[ConvertIntToHumidityLevel.getEnumHumVal(widget.currentPot.currentSoilMoisture)].name
                         .replaceAll('aa', 'å')
                         .replaceAll('_', ' ')
                         .replaceAll('oe', 'ø'),
