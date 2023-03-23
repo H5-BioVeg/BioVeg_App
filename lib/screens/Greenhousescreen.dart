@@ -22,7 +22,7 @@ class _GreenHouseScreenState extends State<GreenHouseScreen> {
   void initState() {
     super.initState();
     setState(() {
-      Timer.periodic(const Duration(seconds: 30), (Timer t) => setState(() {}));
+      Timer.periodic(const Duration(minutes: 15), (Timer t) => setState(() {}));
     });
   }
 

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:bio_veg/classes/Services/ConvertIntToHumidityLevel.dart';
 import 'package:bio_veg/classes/Services/NotificationService.Dart';
 import 'package:bio_veg/classes/FirebaseDbConnector.dart';
 import 'package:bio_veg/classes/Podo/Greenhouse.dart';
@@ -72,9 +73,11 @@ class GreenhouseManager {
     //Increment counter if any pots have exceeding values
     int problemCounter = 0;
     for (var i = 0; i < house.pots.length; i++) {
-      if (house.pots[i].currentSoilMoisture >
+      if (ConvertIntToHumidityLevel.getEnumHumVal(
+                  house.pots[i].currentSoilMoisture) >
               house.pots[i].soilMoistureSettings.soilMoistureMax ||
-          house.pots[i].currentSoilMoisture <
+          ConvertIntToHumidityLevel.getEnumHumVal(
+                  house.pots[i].currentSoilMoisture) <
               house.pots[i].soilMoistureSettings.soilMoistureMin) {
         problemCounter++;
       }
